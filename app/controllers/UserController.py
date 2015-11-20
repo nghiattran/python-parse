@@ -2,11 +2,15 @@ __author__ = 'nghia'
 from flask import request
 import json
 from app.controllers import BaseUserController
-import urllib
+from app.utils import validate_auth_token
 
 class UsersController(BaseUserController):
 
     def post(self):
+        if not self.validate_authetication(request.headers.get(
+                'Authorization', None)):
+            return {'error': '', 'messgae': 'Unauthenticated'}
+
         payload = {
             'username': request.args['username'],
             'password': request.args['password']
@@ -16,12 +20,17 @@ class UsersController(BaseUserController):
         return res
 
     def get(self):
+        if not self.validate_authetication(request.headers.get(
+                'Authorization', None)):
+            return {'error': '', 'messgae': 'Unauthenticated'}
+
         where = {
             'username': 'one'
         }
         params = {
             'where': json.dumps(where)
         }
+
         res = self.model.get(collection = 'users', params = params)
         return res
 
