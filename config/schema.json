@@ -1,0 +1,24 @@
+{
+  "_User": {
+    "objectId": "string",
+    "username": "string",
+    "password": "string",
+    "email": "string",
+    "createdAt": "time",
+    "updatedAt": "time",
+    "emailVerified": "bolean"
+  },
+  "Shelves": {
+    "objectId": "string",
+    "name": "string",
+    "description": "string",
+    "order": "number",
+    "createdAt": "time",
+    "updatedAt": "time",
+    "createdBy": {
+      "_type": "pointer",
+      "to": "_User"
+    },
+    "file": "file"
+  }
+}
