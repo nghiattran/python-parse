@@ -13,19 +13,23 @@ from requests.exceptions import\
 PARSE_MAX_LIMIT = 1000
 
 class BaseModel(object):
-
-    _parse_special_classes = ['apps', 'users', 'login', 'roles', 'files',
-                              'events',
-                              'push', 'installations', 'functions', 'jobs',
+    _parse_class_name = None
+    _parse_special_classes = ['apps', 'users', 'login', 'roles',
+                              'files', 'events', 'push',
+                              'installations', 'functions', 'jobs',
                               'requestPasswordReset', 'products',
                               'roles', 'batch', 'schemas']
 
-    def generate_header(self):
-        return {
+    def generate_header(self, master_key = None):
+        header = {
             "X-Parse-Application-Id": get_config("PARSE_APP_ID"),
             "X-Parse-REST-API-Key": get_config("PARSE_REST_KEY"),
             "Content-Type": "application/json"
         }
+        if master_key:
+            header['X-Parse-Master-Key']= get_config("PARSE_MASTER_KEY")
+
+        return header
 
     def generate_url(self, collection, objectId = None):
         base_url = get_config("PARSE_URL")
@@ -58,7 +62,6 @@ class BaseModel(object):
     def post(self, collection, payload):
         url = self.generate_url(collection = collection)
         headers= self.generate_header()
-        # headers['X-Parse-Revocable-Session'] = 0
 
         try:
             res = requests.post(url=url, headers=headers,
@@ -70,13 +73,13 @@ class BaseModel(object):
         except Exception as e:
             return {'error': e.message}
 
-    def put(self, collection, objectId, payload):
+    def put(self, collection, objectId, payload, master_key=None):
         url = self.generate_url(collection = collection, objectId = objectId)
-        headers= self.generate_header()
+        headers= self.generate_header(master_key=master_key)
 
         try:
             payload = requests.put(url=url, headers=headers,
-                                   payload=json.dumps(payload))
+                                   data=json.dumps(payload))
             return payload.json()
         except ConnectionError as e:
             return {'error': "Cannot connect to database. "
@@ -84,9 +87,9 @@ class BaseModel(object):
         except Exception as e:
             return {'error': e.message}
 
-    def delete(self, collection, objectId):
+    def delete(self, collection, objectId, master_key = None):
         url = self.generate_url(collection = collection, objectId = objectId)
-        headers= self.generate_header()
+        headers= self.generate_header(master_key=master_key)
 
         try:
             res = requests.delete(url=url, headers=headers)
@@ -102,7 +105,7 @@ class BaseModel(object):
         return res
 
     def signup(self, payload):
-        res = self.post(collection = "users", payload=payload)
+        res = self.post(collection = "users", data=payload)
         return res
 
     def password_reset(self, payload):
