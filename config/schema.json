@@ -14,7 +14,11 @@
     "email": "string",
     "createdAt": "time",
     "updatedAt": "time",
-    "emailVerified": "bolean"
+    "emailVerified": "bolean",
+    "createdBy": {
+      "__type": "Pointer",
+      "className": "_User"
+    }
   },
   "Shelves": {
     "objectId": "string",
@@ -24,8 +28,8 @@
     "createdAt": "time",
     "updatedAt": "time",
     "createdBy": {
-      "_type": "pointer",
-      "to": "_User"
+      "__type": "Pointer",
+      "className": "_User"
     },
     "file": "file"
   }

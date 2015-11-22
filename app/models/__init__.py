@@ -118,26 +118,39 @@ class BaseModel(object):
 
         combined_map = map.copy()
         combined_map.update(utils_map)
-        payload = self.filter_data(combined_map, request.args)
+        payload = self.filter_data(
+            map=combined_map,
+            data=request.args
+        )
 
         if 'where' in request.args:
             payload['where'] = json.loads(request.args['where'])
             if '$or' in payload['where']:
                 where = {'$or': []}
                 for condition in payload['where']['$or']:
-                    or_condition = self.filter_data(map, condition)
+                    or_condition = self.filter_data(
+                        map=map,
+                        data=condition
+                    )
                     where['$or'].append(or_condition)
             else:
-                where = self.filter_data(map, payload['where'])
+                where = self.filter_data(
+                    map=map,
+                    data=payload['where']
+                )
 
             where= json.dumps(where)
             payload['where'] = where
 
         return payload
 
-    def filter_data(self, map, dict):
+    def filter_data(self, map, data):
         payload = {}
         for key in map:
-            if key in dict:
-                payload[key] = dict[key]
+            if key in data:
+                if type(map[key]) is dict:
+                    payload[key] = map[key]
+                    payload[key]['objectId'] = data[key]
+                else:
+                    payload[key] = data[key]
         return payload
