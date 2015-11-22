@@ -2,31 +2,25 @@ __author__ = 'nghia'
 from flask import request
 import json
 from app.controllers import BaseUserController
-from app.utils import validate_auth_token
+import requests
+from app.models.authentication_model import requires_auth
 
 class UsersController(BaseUserController):
 
+    @requires_auth
     def post(self):
-        if not self.validate_authetication(request.headers.get(
-                'Authorization', None)):
-            return {'error': '', 'messgae': 'Unauthenticated'}
 
         payload = {
             'username': request.args['username'],
             'password': request.args['password']
-        #     add more data for user here
         }
         res = self.model.post(collection = 'users', payload = payload)
         return res
 
+    @requires_auth
     def get(self):
-        if not self.validate_authetication(request.headers.get(
-                'Authorization', None)):
-            return {'error': '', 'messgae': 'Unauthenticated'}
 
-        where = {
-            'username': 'one'
-        }
+        where = self.model.mapping_entry('_User')
         params = {
             'where': json.dumps(where)
         }
@@ -44,6 +38,28 @@ class UserController(BaseUserController):
         }
         res = self.model.get(collection = 'users', params = params)
         return res
+
+
+    def put(self, objectId):
+        where = {
+            'objectId': objectId
+        }
+
+        params = {
+            'where': json.dumps(where)
+        }
+        res = self.model.user_update(objectId=objectId)
+        return res
+
+    # def get(self, objectId):
+    #     where = {
+    #         'objectId': objectId
+    #     }
+    #     params = {
+    #         'where': json.dumps(where)
+    #     }
+    #     res = self.model.get(collection = 'users', params = params)
+    #     return res
 
 class SignupController(BaseUserController):
     def post(self):

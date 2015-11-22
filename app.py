@@ -1,11 +1,18 @@
 __author__ = 'nghia'
 
-from flask import Flask
-from flask_restful import Api
-from app.controllers.TestController import TestController
-from app.controllers.UserController import UsersController, SignupController, \
-    LoginController, ResetpasswordController, UserController
-from app.utils import get_config
+from flask import\
+    Flask
+from flask_restful import\
+    Api
+from app.controllers.test_controller import\
+    TestController
+from app.controllers.user_controller import \
+    UsersController,\
+    SignupController, \
+    LoginController,\
+    ResetpasswordController,\
+    UserController
+
 
 app = Flask(__name__)
 api = Api(app, prefix="/api/")

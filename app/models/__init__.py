@@ -2,9 +2,13 @@ __author__ = 'nghia'
 
 import json
 import requests
-from app.utils import get_config, generate_auth_token
 import urllib
-from requests.exceptions import ConnectionError
+from app.utils import\
+    get_config,\
+    get_schema
+from flask import request
+from requests.exceptions import\
+    ConnectionError
 
 PARSE_MAX_LIMIT = 1000
 
@@ -104,3 +108,11 @@ class BaseModel(object):
     def password_reset(self, payload):
         res = self.post(collection = "requestPasswordReset", payload=payload)
         return res
+
+    def mapping_entry(self, class_name):
+        map = get_schema(key = class_name);
+        payload = {}
+        for key in map:
+            if key in request.args:
+                payload[key] = request.args[key]
+        return payload

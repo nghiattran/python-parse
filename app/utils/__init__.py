@@ -1,7 +1,7 @@
 __author__ = 'nghia'
-import jwt
 import json
-
+from flask import\
+    request
 CONFIG = None
 CONFIG_SCHEMA = None
 
@@ -29,15 +29,3 @@ def get_schema(key = None):
 
     return CONFIG_SCHEMA
 
-def generate_auth_token(payload):
-    return jwt.encode(payload=payload, key=get_config(key='JWT_KEY'))
-
-def validate_auth_token(token):
-    try:
-        return jwt.decode(jwt=token, key=get_config(key='JWT_KEY'))
-    except jwt.ExpiredSignature:
-        return {'error': 'Token is expired'}
-    except jwt.DecodeError:
-        return {'error': 'Token signature is invalid'}
-    except Exception:
-        return {'error': 'Problem parsing token'}
