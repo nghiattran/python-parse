@@ -12,7 +12,9 @@ _parse_class_name = BaseUserController.model._parse_class_name
 class UsersController(BaseUserController):
     @requires_auth
     def post(self):
-        payload=  self.model.mapping_entry(_parse_class_name)
+        payload=  self.model.mapping_entry(
+            _parse_class_name)
+
         res = self.model.post(
             collection= 'users',
             payload=  payload)
@@ -20,11 +22,9 @@ class UsersController(BaseUserController):
 
     @requires_auth
     def get(self):
-        where = self.model.mapping_entry(_parse_class_name)
-        params=  {
-            'where': json.dumps(where)
-        }
-
+        params = self.model.mapping_entry(
+            _parse_class_name)
+        
         res = self.model.get(
             collection= 'users',
             params=  params)
@@ -46,6 +46,7 @@ class UserController(BaseUserController):
 
     @requires_auth
     def put(self, objectId):
+
         payload=  self.model.mapping_entry(
             _parse_class_name)
 

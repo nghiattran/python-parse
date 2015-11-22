@@ -105,7 +105,7 @@ class BaseModel(object):
         return res
 
     def signup(self, payload):
-        res = self.post(collection = "users", data=payload)
+        res = self.post(collection = "users", payload=payload)
         return res
 
     def password_reset(self, payload):
@@ -113,9 +113,31 @@ class BaseModel(object):
         return res
 
     def mapping_entry(self, class_name):
+        utils_map = get_schema(key = "_Utils");
         map = get_schema(key = class_name);
+
+        combined_map = map.copy()
+        combined_map.update(utils_map)
+        payload = self.filter_data(combined_map, request.args)
+
+        if 'where' in request.args:
+            payload['where'] = json.loads(request.args['where'])
+            if '$or' in payload['where']:
+                where = {'$or': []}
+                for condition in payload['where']['$or']:
+                    or_condition = self.filter_data(map, condition)
+                    where['$or'].append(or_condition)
+            else:
+                where = self.filter_data(map, payload['where'])
+
+            where= json.dumps(where)
+            payload['where'] = where
+
+        return payload
+
+    def filter_data(self, map, dict):
         payload = {}
         for key in map:
-            if key in request.args:
-                payload[key] = request.args[key]
+            if key in dict:
+                payload[key] = dict[key]
         return payload

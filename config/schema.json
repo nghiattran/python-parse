@@ -1,4 +1,12 @@
 {
+  "_Utils": {
+    "where": "object",
+    "keys": "array",
+    "include": "array",
+    "limit": "number",
+    "count": "number",
+    "skip": "number"
+  },
   "_User": {
     "objectId": "string",
     "username": "string",
