@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+export API_CONFIG='config/test.json'
+
+if [ -z $1 ]
+then
+	nosetests -s --stop test/live
+else
+	nosetests -s --stop $1
+fi

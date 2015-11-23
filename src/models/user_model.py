@@ -1,7 +1,7 @@
 __author__ = 'nghia'
-from app.models.authentication_model import \
+from src.models.authentication_model import \
     generate_auth_token
-from app.models import BaseModel
+from src.models import BaseModel
 from flask import \
     request
 

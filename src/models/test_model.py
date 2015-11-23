@@ -1,4 +1,4 @@
-from app.models import BaseModel
+from src.models import BaseModel
 
 __author__ = 'nghia'
 

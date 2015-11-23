@@ -1,0 +1,16 @@
+[report]
+precision = 2
+show_missing = True
+omit = venv/*
+      venv\*
+ignore_errors = True
+
+[run]
+concurrency = gevent
+#branch = False
+source = app
+include = app/*
+          app\*
+
+[html]
+directory = coverage/

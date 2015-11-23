@@ -1,9 +1,9 @@
 __author__ = 'nghia'
 
-from app.models.test_model import TestModel
-from app.models.user_model import UserModel
-from app.forms.UserForm import UserForm
-from app.models.authentication_model import validate_auth_token
+from src.models.test_model import TestModel
+from src.models.user_model import UserModel
+from src.forms.UserForm import UserForm
+from src.models.authentication_model import validate_auth_token
 
 from flask_restful import Resource, Api
 

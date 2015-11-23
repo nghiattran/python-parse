@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+export API_CONFIG='config/test.json'
+nosetests test/live -s -v --with-coverage --cover-html --cover-html-dir ./coverage

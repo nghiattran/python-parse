@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+if [ -z $1 ]
+then
+	config_file=dev
+else
+	config_file=$1
+fi
+
+echo "starting calolo-bot using $config_file.json"
+export CASHIER_API_CONFIG=`cat config/$config_file.json`
+export SLACKBOT_API_TOKEN=xoxb-6488812180-H4ybP4yjFysJYhmbzaiNf6Sc
+python slackbotapp.py

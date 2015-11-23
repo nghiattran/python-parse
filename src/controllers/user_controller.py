@@ -1,10 +1,10 @@
 __author__ = 'nghia'
 from flask import request
 import json
-from app.controllers import\
+from src.controllers import\
     BaseUserController
 import requests
-from app.models.authentication_model import\
+from src.models.authentication_model import\
     requires_auth
 
 _parse_class_name = BaseUserController.model._parse_class_name
@@ -24,7 +24,6 @@ class UsersController(BaseUserController):
     def get(self):
         params = self.model.mapping_entry(
             _parse_class_name)
-        
         res = self.model.get(
             collection= 'users',
             params=  params)

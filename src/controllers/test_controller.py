@@ -1,6 +1,6 @@
 __author__ = 'nghia'
 
-from app.controllers import BaseTestController
+from src.controllers import BaseTestController
 from flask_restful import Resource
 
 class TestController(BaseTestController):

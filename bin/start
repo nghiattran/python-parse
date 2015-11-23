@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+log_file=-
+if [ "$1" = "--daemon" ]; then
+	log_file=gunicorn.log
+fi
+
+if [ -z $1 ]
+then
+	config_file=dev
+else
+	config_file=$1
+fi
+
+export CASHIER_API_CONFIG=`cat config/$config_file.json`
+gunicorn --reload --worker-class=gevent --access-logfile=$log_file --error-logfile=$log_file --name=cashier -b '0.0.0.0:8000' app:app $1

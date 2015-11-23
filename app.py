@@ -4,15 +4,16 @@ from flask import\
     Flask
 from flask_restful import\
     Api
-from app.controllers.test_controller import\
+from src.controllers.test_controller import\
     TestController
-from app.controllers.user_controller import \
+from src.controllers.user_controller import \
     UsersController,\
     SignupController, \
     LoginController,\
     ResetpasswordController,\
     UserController
-
+import urllib3
+urllib3.disable_warnings()
 
 app = Flask(__name__)
 api = Api(app, prefix="/api/")

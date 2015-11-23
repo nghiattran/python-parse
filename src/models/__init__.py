@@ -3,7 +3,7 @@ __author__ = 'nghia'
 import json
 import requests
 import urllib
-from app.utils import\
+from src.utils import\
     get_config,\
     get_schema
 from flask import request
@@ -22,17 +22,17 @@ class BaseModel(object):
 
     def generate_header(self, master_key = None):
         header = {
-            "X-Parse-Application-Id": get_config("PARSE_APP_ID"),
-            "X-Parse-REST-API-Key": get_config("PARSE_REST_KEY"),
+            "X-Parse-Application-Id": get_config(key="PARSE_APP_ID"),
+            "X-Parse-REST-API-Key": get_config(key="PARSE_REST_KEY"),
             "Content-Type": "application/json"
         }
         if master_key:
-            header['X-Parse-Master-Key']= get_config("PARSE_MASTER_KEY")
+            header['X-Parse-Master-Key']= get_config(key="PARSE_MASTER_KEY")
 
         return header
 
     def generate_url(self, collection, objectId = None):
-        base_url = get_config("PARSE_URL")
+        base_url = get_config(key="PARSE_URL")
 
         if collection in self._parse_special_classes:
             url = "{}/{}".format(base_url, collection)
@@ -44,11 +44,10 @@ class BaseModel(object):
 
         return url
 
-    def get(self, collection, params):
+    def get(self, collection, params, master_key=None):
         url = self.generate_url(collection = collection)
         headers= self.generate_header()
         params = urllib.urlencode(params)
-
         try:
             res = requests.get(url=url, headers=headers,
                                params=params)
@@ -59,7 +58,7 @@ class BaseModel(object):
         except Exception as e:
             return {'error': e.message}
 
-    def post(self, collection, payload):
+    def post(self, collection, payload, master_key=None):
         url = self.generate_url(collection = collection)
         headers= self.generate_header()
 
@@ -123,7 +122,7 @@ class BaseModel(object):
             data=request.args
         )
 
-        if 'where' in request.args:
+        if 'where' in request.args and request.args['where'] is not None:
             payload['where'] = json.loads(request.args['where'])
             if '$or' in payload['where']:
                 where = {'$or': []}

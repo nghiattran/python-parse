@@ -3,10 +3,10 @@ from functools import\
     wraps
 from flask import\
     request
+from src.utils import\
+    get_config
 import requests
 import jwt
-
-from app.utils import get_config
 
 def auth_error(message="Authentication Error"):
     res = {'error': message}
@@ -30,7 +30,6 @@ def requires_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         auth = request.headers.get('Authentication', None)
-        print auth
         if not auth:
             return auth_error(message="Expected authentication token!")
 

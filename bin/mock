@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+export CASHIER_API_CONFIG=`cat config/test.json`
+
+if [ -z $1 ]
+then
+	nosetests -s --stop test/mock
+else
+    nosetests -s --stop $1
+fi
