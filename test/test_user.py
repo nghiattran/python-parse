@@ -5,7 +5,6 @@ from test import BaseTestCase
 
 
 class UserTestCase(BaseTestCase):
-    # Test get
     def test_get_data_all(self):
         params = {
         }
@@ -47,19 +46,3 @@ class UserTestCase(BaseTestCase):
 
         assert 'results' in res
         assert 'count' in res
-
-    # Test login
-
-    def test_login(self):
-
-        pass
-
-    # Test signup
-
-    def test_signup(self):
-        payload = {
-            'username': self.random_string(length=20),
-            'password': 'testing'
-        }
-        res = self.post_data(url='signup', data=payload)
-        print res

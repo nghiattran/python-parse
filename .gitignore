@@ -1,4 +1,8 @@
 .idea/
 venv
 venv/
+env/
+env
 *.pyc
+coverage
+coverage/

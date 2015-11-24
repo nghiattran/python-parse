@@ -1,6 +1,8 @@
 __author__ = 'nghia'
 
 import json
+import string
+import random
 import unittest
 import requests
 import urllib
@@ -78,5 +80,29 @@ class BaseTestCase(unittest.TestCase):
     def get_data(self, url, params=None):
         url = self.prefix_url + url
         res = self.app.get(url, query_string=params)
+        return json.loads(res.data)
+
+    def post_data(self, url, data=None):
+        if type(data) is dict:
+            data = json.dumps(data)
+        url = self.prefix_url + url
+        res = self.app.post(url, data=data)
 
         return json.loads(res.data)
+
+    def put_data(self, url, data):
+        if type(data) is dict:
+            data = json.dumps(data)
+        url = self.prefix_url + url
+        res = self.app.put(url, data=data)
+
+        return json.loads(res.data)
+
+    def delete_data(self, url):
+        url = self.prefix_url + url
+        res = self.app.delete(url)
+
+        return json.loads(res.data)
+
+    def random_string(self, length = 20, chars=string.ascii_uppercase + string.digits):
+        return ''.join(random.choice(chars) for _ in range(length))

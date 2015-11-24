@@ -67,10 +67,12 @@ class UserController(BaseUserController):
 
 class SignupController(BaseUserController):
     def post(self):
+        data = json.loads(request.data)
         payload=  {
-            'username': request.args['username'],
-            'password': request.args['password']
+            'username': data['username'],
+            'password': data['password']
         }
+
         res = self.model.user_signup(
             payload=  payload
         )

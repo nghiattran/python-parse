@@ -1,0 +1,66 @@
+[2015-11-23 20:34:40 +0000] [14584] [INFO] Starting gunicorn 19.3.0
+[2015-11-23 20:34:40 +0000] [14584] [INFO] Listening at: http://0.0.0.0:8000 (14584)
+[2015-11-23 20:34:40 +0000] [14584] [INFO] Using worker: gevent
+[2015-11-23 20:34:40 +0000] [14589] [INFO] Booting worker with pid: 14589
+[2015-11-23 20:34:44 +0000] [14584] [INFO] Handling signal: int
+[2015-11-23 20:34:44 +0000] [14589] [INFO] Worker exiting (pid: 14589)
+[2015-11-23 20:34:44 +0000] [14584] [INFO] Shutting down: Master
+[2015-11-23 20:34:47 +0000] [14593] [INFO] Starting gunicorn 19.3.0
+[2015-11-23 20:34:47 +0000] [14593] [INFO] Listening at: http://0.0.0.0:8000 (14593)
+[2015-11-23 20:34:47 +0000] [14593] [INFO] Using worker: gevent
+[2015-11-23 20:34:47 +0000] [14598] [INFO] Booting worker with pid: 14598
+127.0.0.1 - - [23/Nov/2015:20:34:53 -0500] "GET /api/users HTTP/1.1" 200 57 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2490.86 Safari/537.36"
+[2015-11-23 20:35:12 +0000] [14593] [INFO] Handling signal: int
+[2015-11-23 20:35:12 +0000] [14598] [ERROR] Exception in worker process:
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/gunicorn/arbiter.py", line 507, in spawn_worker
+    worker.init_process()
+  File "/usr/local/lib/python2.7/dist-packages/gunicorn/workers/ggevent.py", line 192, in init_process
+    super(GeventWorker, self).init_process()
+  File "/usr/local/lib/python2.7/dist-packages/gunicorn/workers/base.py", line 124, in init_process
+    self.run()
+  File "/usr/local/lib/python2.7/dist-packages/gunicorn/workers/ggevent.py", line 116, in run
+    gevent.sleep(1.0)
+  File "/usr/local/lib/python2.7/dist-packages/gevent/hub.py", line 82, in sleep
+    hub.wait(loop.timer(seconds, ref=ref))
+  File "/usr/local/lib/python2.7/dist-packages/gevent/hub.py", line 348, in wait
+    result = waiter.get()
+  File "/usr/local/lib/python2.7/dist-packages/gevent/hub.py", line 575, in get
+    return self.hub.switch()
+  File "/usr/local/lib/python2.7/dist-packages/gevent/hub.py", line 338, in switch
+    return greenlet.switch(self)
+AssertionError: Impossible to call blocking function in the event loop callback
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/dist-packages/gunicorn/arbiter.py", line 507, in spawn_worker
+    worker.init_process()
+  File "/usr/local/lib/python2.7/dist-packages/gunicorn/workers/ggevent.py", line 192, in init_process
+    super(GeventWorker, self).init_process()
+  File "/usr/local/lib/python2.7/dist-packages/gunicorn/workers/base.py", line 124, in init_process
+    self.run()
+  File "/usr/local/lib/python2.7/dist-packages/gunicorn/workers/ggevent.py", line 116, in run
+    gevent.sleep(1.0)
+  File "/usr/local/lib/python2.7/dist-packages/gevent/hub.py", line 82, in sleep
+    hub.wait(loop.timer(seconds, ref=ref))
+  File "/usr/local/lib/python2.7/dist-packages/gevent/hub.py", line 348, in wait
+    result = waiter.get()
+  File "/usr/local/lib/python2.7/dist-packages/gevent/hub.py", line 575, in get
+    return self.hub.switch()
+  File "/usr/local/lib/python2.7/dist-packages/gevent/hub.py", line 338, in switch
+    return greenlet.switch(self)
+AssertionError: Impossible to call blocking function in the event loop callback
+[2015-11-23 20:35:12 +0000] [14598] [INFO] Worker exiting (pid: 14598)
+[2015-11-23 20:35:12 +0000] [14593] [INFO] Shutting down: Master
+[2015-11-23 20:35:13 +0000] [14617] [INFO] Starting gunicorn 19.3.0
+[2015-11-23 20:35:13 +0000] [14617] [INFO] Listening at: http://0.0.0.0:8000 (14617)
+[2015-11-23 20:35:13 +0000] [14617] [INFO] Using worker: gevent
+[2015-11-23 20:35:13 +0000] [14622] [INFO] Booting worker with pid: 14622
+[2015-11-23 20:35:23 +0000] [14617] [INFO] Handling signal: int
+[2015-11-23 20:35:23 +0000] [14622] [INFO] Worker exiting (pid: 14622)
+[2015-11-23 20:35:23 +0000] [14617] [INFO] Shutting down: Master
+[2015-11-23 20:35:24 +0000] [14634] [INFO] Starting gunicorn 19.3.0
+[2015-11-23 20:35:24 +0000] [14634] [INFO] Listening at: http://0.0.0.0:8000 (14634)
+[2015-11-23 20:35:24 +0000] [14634] [INFO] Using worker: gevent
+[2015-11-23 20:35:24 +0000] [14639] [INFO] Booting worker with pid: 14639
+[2015-11-23 20:35:25 +0000] [14634] [INFO] Handling signal: int
+[2015-11-23 20:35:26 +0000] [14639] [INFO] Worker exiting (pid: 14639)
+[2015-11-23 20:35:26 +0000] [14634] [INFO] Shutting down: Master

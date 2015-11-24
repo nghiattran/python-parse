@@ -7,10 +7,10 @@ ignore_errors = True
 
 [run]
 concurrency = gevent
-#branch = False
-source = app
-include = app/*
-          app\*
+#branch = True
+source = src
+include = src/*
+          src\*
 
 [html]
 directory = coverage/
