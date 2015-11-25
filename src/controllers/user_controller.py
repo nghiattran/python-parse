@@ -22,8 +22,9 @@ class UsersController(BaseUserController):
 
     @requires_auth
     def get(self):
-        params = self.model.mapping_entry(
-            _parse_class_name)
+        form = self.get_form()
+        params = form.data
+
         res = self.model.get(
             collection= 'users',
             params=  params)
@@ -67,23 +68,19 @@ class UserController(BaseUserController):
 
 class SignupController(BaseUserController):
     def post(self):
-        data = json.loads(request.data)
-        payload=  {
-            'username': data['username'],
-            'password': data['password']
-        }
+        form = self.signup_form()
+        payload = form.data
 
         res = self.model.user_signup(
-            payload=  payload
+            payload=payload
         )
         return res
 
 class LoginController(BaseUserController):
     def get(self):
-        params=  {
-            'username': request.args['username'],
-            'password': request.args['password']
-        }
+        form = self.login_form()
+        params = form.data
+
         res = self.model.user_login(
             params=  params
         )
@@ -91,9 +88,9 @@ class LoginController(BaseUserController):
 
 class ResetpasswordController(BaseUserController):
     def post(self):
-        payload=  {
-            'email': request.args['email']
-        }
+        form = self.reset_password_form()
+        payload = form.data
+
         res = self.model.password_reset(
             payload=  payload
         )

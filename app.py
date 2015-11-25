@@ -12,10 +12,12 @@ from src.controllers.user_controller import \
     LoginController,\
     ResetpasswordController,\
     UserController
-import urllib3
-urllib3.disable_warnings()
+# import urllib3
+# urllib3.disable_warnings()
 
 app = Flask(__name__)
+app.debug = True
+
 api = Api(app, prefix="/api/")
 
 api.add_resource(TestController, '')

@@ -8,10 +8,12 @@ class UserTestCase(BaseTestCase):
     # Test get
     def test_get_data_all(self):
         params = {
+            'where': {}
         }
         res = self.get_data(url='users', params=params)
 
         assert 'results' in res
+        assert len(res['results']) > 0
         
     def test_get_data_specific_entry(self):
         params = {
@@ -62,4 +64,6 @@ class UserTestCase(BaseTestCase):
             'password': 'testing'
         }
         res = self.post_data(url='signup', data=payload)
-        print res
+
+        assert 'createdAt' in res
+        assert 'token' in res
