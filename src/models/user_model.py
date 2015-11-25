@@ -10,12 +10,14 @@ class UserModel(BaseModel):
     _parse_class_name = '_User'
     def user_login(self, params):
         res = self.login(params = params)
-        res['token'] = generate_auth_token(res);
+        if 'error' not in res:
+            res['token'] = generate_auth_token(res);
         return res
 
     def user_signup(self, payload):
         res = self.signup(payload = payload)
-        res['token'] = generate_auth_token(res);
+        if 'error' not in res:
+            res['token'] = generate_auth_token(res);
         return res
 
     def user_resetpassword(self, payload):

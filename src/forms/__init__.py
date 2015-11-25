@@ -69,7 +69,7 @@ class BaseGetForm(BaseAPIForm):
     skip = IntegerField(default=0)
     limit = IntegerField(default=PARSE_MAX_LIMIT)
     include = StringField(default=None)
-    keys = StringField([validators.optional()])
+    keys = StringField([validators.required()])
 
 class BasePostForm(BaseAPIForm):
     _data_location = 'json'

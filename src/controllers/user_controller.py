@@ -46,9 +46,7 @@ class UserController(BaseUserController):
 
     @requires_auth
     def put(self, objectId):
-
-        payload=  self.model.mapping_entry(
-            _parse_class_name)
+        payload =  self.model.mapping_entry(_parse_class_name)
 
         res = self.model.put(
             collection= 'users',
