@@ -7,10 +7,10 @@ install:
   - bin/install
   - pip install coveralls
 
-# command to run tests
+# command to run tests and coverage
 script:
-  - bin/test
+  - bin/cover
 
-# command to run coverage
+# command to run coveralls
 after_success:
   coveralls
