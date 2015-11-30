@@ -7,7 +7,7 @@
 
 #Road map
 List of planning features
-- [x]Limit request per ip~~
-- [x]Limit request per interval~~
+- [x]Limit request per ip
+- [x]Limit request per interval
 - []Email automation
 - []Update documentation
