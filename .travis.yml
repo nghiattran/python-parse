@@ -1,16 +1,22 @@
 language: python
 python:
-  - "2.7"
+    - "2.7"
 
 # command to install dependencies
 install:
-  - bin/install
-  - pip install coveralls
+    - bin/install
+    - pip install coveralls
 
-# command to run tests and coverage
+
 script:
-  - bin/cover
+    # command to run tests and coverage
+    - bin/cover
 
-# command to run coveralls
 after_success:
-  coveralls
+    # command to run coveralls
+    coveralls
+
+
+services:
+    # command to redis
+    - redis-server
