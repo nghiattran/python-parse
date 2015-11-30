@@ -12,7 +12,8 @@ from src.forms import \
     BasePostForm
 
 class UserGetForm(BaseGetForm):
-    pass
+    username = StringField()
+    password = HiddenField()
 
 class UserSignupForm(BasePostForm):
     username = StringField()
