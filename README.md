@@ -7,9 +7,8 @@
 
 #Road map
 
-List of planning features:
+But I have to admit, tasks lists are my favorite:
 
-- [x]Limit request per ip~~
-- [x]Limit request per interval~~
-- []Email automation
-- []Update documentation
+- [x] This is a complete item
+- [ ] This is an incomplete item
+
