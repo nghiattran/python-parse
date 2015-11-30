@@ -1,10 +1,12 @@
-GitHub supports many extras in Markdown that help you reference and link to people. If you ever want to direct a comment at someone, you can prefix their name with an @ symbol: Hey @kneath — love your sweater!
+#Work on prgress
 
-But I have to admit, tasks lists are my favorite:
+[![Build Status](https://travis-ci.org/nghiattran/python-parse.svg?branch=master)](https://travis-ci.org/nghiattran/python-parse)&nbsp;&nbsp;[![Coverage Status](https://coveralls.io/repos/nghiattran/python-parse/badge.svg?branch=master&service=github)](https://coveralls.io/github/nghiattran/python-parse?branch=master)
 
-- [x] This is a complete item
-- [ ] This is an incomplete item
+#Python-parse
+    Python API service for backend system using parse.com as database
 
-When you include a task list in the first comment of an Issue, you will see a helpful progress bar in your list of issues. It works in Pull Requests, too!
-
-And, of course emoji! :sparkles: :camel: :boom:
+#Road map:
+- [x]Limit request per ip~~
+- [x]Limit request per interval~~
+- []Email automation
+- []Update documentation
