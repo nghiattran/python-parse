@@ -7,7 +7,7 @@
 
 [![image](python-parse.png)](https://github.com/nghiattran/python-parse)
 
-[Roadmap](https://github.com/nghiattran/python-parse#road-map)&nbsp;&nbsp;&nbsp;[API architecture](https://github.com/nghiattran/angular-parse/blob/gh-pages/README.md#api-architecture)
+[Roadmap](https://github.com/nghiattran/python-parse#road-map)&nbsp;&nbsp;&nbsp;[API architecture](https://github.com/nghiattran/python-parse/tree/limit#api-architecture)
 
 #Road map
 
