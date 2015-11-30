@@ -45,4 +45,3 @@ List of planning features:
         \- live                             # branch for live tests
             \- integration                  # branch for integration test
                 \- test_user.py             # tests for user_controller
-        
