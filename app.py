@@ -12,10 +12,10 @@ from src.controllers.user_controller import \
     LoginController,\
     ResetpasswordController,\
     UserController
-# import urllib3
-# urllib3.disable_warnings()
+import redis
 
 app = Flask(__name__)
+app.redis = redis.StrictRedis(host='localhost', port=6379, db=0)
 app.debug = True
 
 api = Api(app, prefix="/api/")
@@ -23,7 +23,7 @@ api = Api(app, prefix="/api/")
 api.add_resource(TestController, '')
 
 api.add_resource(UsersController, 'users')
-api.add_resource(UserController, 'users/<string:objectId>')
+api.add_resource(UserController, 'users/<string:object_id>')
 
 api.add_resource(LoginController, 'login')
 

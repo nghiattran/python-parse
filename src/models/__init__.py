@@ -31,7 +31,7 @@ class BaseModel(object):
 
         return header
 
-    def generate_url(self, collection, objectId = None):
+    def generate_url(self, collection, object_id = None):
         base_url = get_config(key="PARSE_URL")
 
         if collection in self._parse_special_classes:
@@ -39,8 +39,8 @@ class BaseModel(object):
         else:
             url = "{}/classes/{}".format(base_url, collection)
 
-        if objectId is not None:
-            url = "{}/{}".format(url, objectId)
+        if object_id is not None:
+            url = "{}/{}".format(url, object_id)
 
         return url
 
@@ -72,8 +72,8 @@ class BaseModel(object):
         except Exception as e:
             return {'error': e.message}
 
-    def put(self, collection, objectId, payload, master_key=None):
-        url = self.generate_url(collection = collection, objectId = objectId)
+    def put(self, collection, object_id, payload, master_key=None):
+        url = self.generate_url(collection = collection, object_id = object_id)
         headers= self.generate_header(master_key=master_key)
 
         try:
@@ -86,8 +86,8 @@ class BaseModel(object):
         except Exception as e:
             return {'error': e.message}
 
-    def delete(self, collection, objectId, master_key = None):
-        url = self.generate_url(collection = collection, objectId = objectId)
+    def delete(self, collection, object_id, master_key = None):
+        url = self.generate_url(collection = collection, object_id = object_id)
         headers= self.generate_header(master_key=master_key)
 
         try:
@@ -149,7 +149,7 @@ class BaseModel(object):
             if key in data:
                 if type(map[key]) is dict:
                     payload[key] = map[key]
-                    payload[key]['objectId'] = data[key]
+                    payload[key]['object_id'] = data[key]
                 else:
                     payload[key] = data[key]
         return payload
