@@ -1,70 +1,87 @@
-__author__ = 'nghia'
-from flask import request
+
 import json
 from src.controllers import\
     BaseUserController
-import requests
 from src.models.authentication_model import\
-    requires_auth
+    requires_auth,\
+    limit
 
 _parse_class_name = BaseUserController.model._parse_class_name
 
+
 class UsersController(BaseUserController):
+    # Require authentication token
     @requires_auth
+    # Limit number of requests per IP
+    @limit(requests=100, window=30, by='ip', group=None)
+    # Limit number of requests per second
+    @limit(requests=30, window=1, by='parse', group='parse')
     def post(self):
-        payload=  self.model.mapping_entry(
+        payload = self.model.mapping_entry(
             _parse_class_name)
 
         res = self.model.post(
-            collection= 'users',
-            payload=  payload)
+            collection='users',
+            payload=payload)
         return res
 
     @requires_auth
+    @limit(requests=100, window=30, by='ip', group=None)
+    @limit(requests=30, window=1, by='parse', group='parse')
     def get(self):
         form = self.get_form()
         params = form.data
 
         res = self.model.get(
-            collection= 'users',
-            params=  params)
+            collection='users',
+            params=params)
         return res
+
 
 class UserController(BaseUserController):
     @requires_auth
-    def get(self, objectId):
+    @limit(requests=100, window=30, by='ip', group=None)
+    @limit(requests=30, window=1, by='parse', group='parse')
+    def get(self, object_id):
         where = {
-            'objectId': objectId
+            'objectId': object_id
         }
-        params=  {
+        params = {
             'where': json.dumps(where)
         }
         res = self.model.get(
-            collection= 'users',
-            params=  params)
+            collection='users',
+            params=params)
         return res
 
     @requires_auth
-    def put(self, objectId):
-        payload =  self.model.mapping_entry(_parse_class_name)
+    @limit(requests=100, window=30, by='ip', group=None)
+    @limit(requests=30, window=1, by='parse', group='parse')
+    def put(self, object_id):
+        payload = self.model.mapping_entry(_parse_class_name)
 
         res = self.model.put(
-            collection= 'users',
-            objectId= objectId,
-            payload= payload,
-            master_key= True)
+            collection='users',
+            object_id=object_id,
+            payload=payload,
+            master_key=True)
         return res
 
     @requires_auth
-    def delete(self, objectId):
+    @limit(requests=100, window=30, by='ip', group=None)
+    @limit(requests=30, window=1, by='parse', group='parse')
+    def delete(self, object_id):
         res = self.model.delete(
-            collection= 'users',
-            objectId= objectId,
-            master_key= True
+            collection='users',
+            object_id=object_id,
+            master_key=True
         )
         return res
 
+
 class SignupController(BaseUserController):
+    @limit(requests=100, window=30, by='ip', group=None)
+    @limit(requests=30, window=1, by='parse', group='parse')
     def post(self):
         form = self.signup_form()
         payload = form.data
@@ -74,22 +91,28 @@ class SignupController(BaseUserController):
         )
         return res
 
+
 class LoginController(BaseUserController):
+    @limit(requests=100, window=30, by='ip', group=None)
+    @limit(requests=30, window=1, by='parse', group='parse')
     def get(self):
         form = self.login_form()
         params = form.data
 
         res = self.model.user_login(
-            params=  params
+            params= params
         )
         return res
 
+
 class ResetpasswordController(BaseUserController):
+    @limit(requests=100, window=30, by='ip', group=None)
+    @limit(requests=30, window=1, by='parse', group='parse')
     def post(self):
         form = self.reset_password_form()
         payload = form.data
 
         res = self.model.password_reset(
-            payload=  payload
+            payload=payload
         )
         return res

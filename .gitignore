@@ -5,4 +5,4 @@ env/
 env
 *.pyc
 coverage
-coverage/
+.coverage
