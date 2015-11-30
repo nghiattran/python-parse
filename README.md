@@ -6,7 +6,7 @@
     Python API service for backend system using parse.com as database
 
 #Road map
-    ~~Limit request per ip~~
-    ~~Limit request per interval~~
-    Email automation
-    Update documentation
+- [x]Limit request per ip~~
+- [x]Limit request per interval~~
+- []Email automation
+- []Update documentation
