@@ -6,6 +6,7 @@ from src.models.user_model import\
     UserModel
 from src.forms.user_form import\
     UserGetForm,\
+    UserPutForm, \
     UserSignupForm,\
     UserLoginForm,\
     UserResetPasswordForm
@@ -27,6 +28,7 @@ class BaseTestController(BaseController):
 class BaseUserController(BaseController):
     model = UserModel()
     get_form = UserGetForm
+    put_form = UserPutForm
     signup_form = UserSignupForm
     login_form = UserLoginForm
     reset_password_form = UserResetPasswordForm

@@ -16,18 +16,6 @@ class UsersController(BaseUserController):
     @limit(requests=100, window=30, by='ip', group=None)
     # Limit number of requests per second
     @limit(requests=30, window=1, by='parse', group='parse')
-    def post(self):
-        payload = self.model.mapping_entry(
-            _parse_class_name)
-
-        res = self.model.post(
-            collection='users',
-            payload=payload)
-        return res
-
-    @requires_auth
-    @limit(requests=100, window=30, by='ip', group=None)
-    @limit(requests=30, window=1, by='parse', group='parse')
     def get(self):
         form = self.get_form()
         params = form.data
@@ -58,7 +46,8 @@ class UserController(BaseUserController):
     @limit(requests=100, window=30, by='ip', group=None)
     @limit(requests=30, window=1, by='parse', group='parse')
     def put(self, object_id):
-        payload = self.model.mapping_entry(_parse_class_name)
+        form = self.put_form()
+        payload = form.data
 
         res = self.model.put(
             collection='users',
