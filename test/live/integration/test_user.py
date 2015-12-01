@@ -93,14 +93,20 @@ class UserTestCase(BaseTestCase):
     # Test put
 
     def test_put(self):
-        res = self.get_data(url='users', params=None)
+        params = {
+            'keys': 'phone,username'
+        }
+        res = self.get_data(url='users', params=params)
         url = 'users/' + res['results'][0]['objectId']
         payload = {
+            'username': res['results'][0]['username'],
+            'password': 'testing',
             'phone': 'phone has changed'
         }
         res = self.put_data(url=url, data=payload)
 
         assert 'updatedAt' in res
+        assert res['phone'] in 'phone has changed'
 
     # Test delete
 
