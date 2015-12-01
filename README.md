@@ -8,9 +8,9 @@
 
 [![image](python-parse.png)](https://github.com/nghiattran/python-parse)
 
-[Roadmap](https://github.com/nghiattran/python-parse#road-map)
-[Getting Started](https://github.com/nghiattran/python-parse#getting-started)
-[API architecture](https://github.com/nghiattran/python-parse/tree/master#api-architecture)
+[Roadmap](https://github.com/nghiattran/python-parse#road-map)&nbsp;&nbsp;&nbsp;
+[Getting Started](https://github.com/nghiattran/python-parse#getting-started)&nbsp;&nbsp;&nbsp;
+[API architecture](https://github.com/nghiattran/python-parse/tree/master#api-architecture)&nbsp;&nbsp;&nbsp;
 
 #Road map
 
@@ -88,7 +88,7 @@ List of planning features:
 
 Example: open `/users` endpoint.
 
-####Create `<endpoint_name>_form.py` in this case `user_form.py`:
+####1/ Create `<endpoint_name>_form.py` in this case `user_form.py`:
 This file plays as a filter for incomming data.
 
 ``` python
@@ -104,9 +104,10 @@ class UserGetForm(BaseGetForm):
 ```
 
 `BaseGetForm` is for filtering `limit`, `count`, `keys`, . . .
+
 All accessible data need to be placed in`UserGetForm` or will be ignored. As in this case only `username` and `password` are included.
 
-####Create `<endpoint_name>_model.py` in this case `user_model.py`:
+####2/ Create `<endpoint_name>_model.py` in this case `user_model.py`:
 This file is adding headers and sending requests to Parse.com.
 
 ``` python
@@ -132,7 +133,7 @@ As you see, `user_signup` receives `payload` containing user's credentials and s
 
 If the request success, a session token will be added to 'res' by calling 'res['token'] = generate_auth_token(res);'
 
-####Add `Base<endpoint_controller_name>.py` in `src/controllers/__init__.py`:
+####3/ Add `Base<endpoint_controller_name>.py` in `src/controllers/__init__.py`:
 
 ```python
 from src.forms.user_form import\
@@ -143,7 +144,7 @@ class BaseUserController(BaseController):
     get_form = UserGetForm
 ```
 
-####Create `<endpoint_name>_controller.py` in this case `user_controller.py`:
+####4/ Create `<endpoint_name>_controller.py` in this case `user_controller.py`:
 This file plays as a request receiver and pass it to model. 
 ```python
 import json
@@ -202,10 +203,12 @@ class UserController(BaseUserController):
 ```
 
 `@requires_auth` will check if the request has `authentication` token. If not, return error.
-`@limit(requests=100, window=30, by='ip', group=None)` if the number of requests sent from an IP to an endpoint `group` is greater than `request_limit` in time interval `window`. If it is, return error.
-`@@limit(requests=30, window=1, by='parse', group='parse')` if the number of requests exceed capability of the server. If it does, return error.
 
-####Create endpoint and its associate controller
+`@limit(requests=100, window=30, by='ip', group=None)` if the number of requests sent from an IP to an endpoint `group` is greater than `request_limit` in time interval `window`. If it is, return error.
+
+`@limit(requests=30, window=1, by='parse', group='parse')` if the number of requests exceed capability of the server. If it does, return error.
+
+####5/ Create endpoint and its associate controller
 Just simply add the followings to app.py
 
 ```python
