@@ -1,19 +1,22 @@
 #Work on prgress
 
-[![Build Status](https://travis-ci.org/nghiattran/python-parse.svg?branch=master)](https://travis-ci.org/nghiattran/python-parse)&nbsp;&nbsp;[![Coverage Status](https://coveralls.io/repos/nghiattran/python-parse/badge.svg?branch=master&service=github)](https://coveralls.io/github/nghiattran/python-parse?branch=master)
+[![Build Status](https://travis-ci.org/nghiattran/python-parse.svg?branch=master)](https://travis-ci.org/nghiattran/python-parse)
+[![Coverage Status](https://coveralls.io/repos/nghiattran/python-parse/badge.svg?branch=master&service=github)](https://coveralls.io/github/nghiattran/python-parse?branch=master)
 
 #Python-parse
     Python API template for backend system using parse.com as database.
 
 [![image](python-parse.png)](https://github.com/nghiattran/python-parse)
 
-[Roadmap](https://github.com/nghiattran/python-parse#road-map)&nbsp;&nbsp;&nbsp;[Getting Started](https://github.com/nghiattran/python-parse#getting-started)&nbsp;&nbsp;&nbsp;[API architecture](https://github.com/nghiattran/python-parse/tree/master#api-architecture)
+[Roadmap](https://github.com/nghiattran/python-parse#road-map)
+[Getting Started](https://github.com/nghiattran/python-parse#getting-started)
+[API architecture](https://github.com/nghiattran/python-parse/tree/master#api-architecture)
 
 #Road map
 
 List of planning features:
 
-- [x] Limit request per ip
+- [x] Limit request per IP
 - [x] Limit request per interval
 - [ ] Email automation
 - [ ] Update documentation
@@ -85,7 +88,7 @@ List of planning features:
 
 Example: open `/users` endpoint.
 
-* Create `<endpoint_name>_form.py` in this case `user_form.py`:
+####Create `<endpoint_name>_form.py` in this case `user_form.py`:
 This file plays as a filter for incomming data.
 
 ``` python
@@ -103,7 +106,7 @@ class UserGetForm(BaseGetForm):
 `BaseGetForm` is for filtering `limit`, `count`, `keys`, . . .
 All accessible data need to be placed in`UserGetForm` or will be ignored. As in this case only `username` and `password` are included.
 
-* Create `<endpoint_name>_model.py` in this case `user_model.py`:
+####Create `<endpoint_name>_model.py` in this case `user_model.py`:
 This file is adding headers and sending requests to Parse.com.
 
 ``` python
@@ -129,7 +132,7 @@ As you see, `user_signup` receives `payload` containing user's credentials and s
 
 If the request success, a session token will be added to 'res' by calling 'res['token'] = generate_auth_token(res);'
 
-* Add `Base<endpoint_controller_name>.py` in `src/controllers/__init__.py`:
+####Add `Base<endpoint_controller_name>.py` in `src/controllers/__init__.py`:
 
 ```python
 from src.forms.user_form import\
@@ -140,5 +143,74 @@ class BaseUserController(BaseController):
     get_form = UserGetForm
 ```
 
-* Create `<endpoint_name>_controller.py` in this case `user_controller.py`:
-This file plays as a request receiver and pass it to model.
+####Create `<endpoint_name>_controller.py` in this case `user_controller.py`:
+This file plays as a request receiver and pass it to model. 
+```python
+import json
+from src.controllers import\
+    BaseUserController
+from src.models.authentication_model import\
+    requires_auth,\
+    limit
+    
+class UsersController(BaseUserController):
+    # Require authentication token
+    @requires_auth
+    # Limit number of requests per IP
+    @limit(requests=100, window=30, by='ip', group=None)
+    # Limit number of requests per second
+    @limit(requests=30, window=1, by='parse', group='parse')
+    def get(self):
+        form = self.get_form()
+        params = form.data
+
+        res = self.model.get(
+            collection='users',
+            params=params)
+        return res
+
+
+class UserController(BaseUserController):
+    @requires_auth
+    @limit(requests=100, window=30, by='ip', group=None)
+    @limit(requests=30, window=1, by='parse', group='parse')
+    def get(self, object_id):
+        where = {
+            'objectId': object_id
+        }
+        params = {
+            'where': json.dumps(where)
+        }
+        res = self.model.get(
+            collection='users',
+            params=params)
+        return res
+
+    @requires_auth
+    @limit(requests=100, window=30, by='ip', group=None)
+    @limit(requests=30, window=1, by='parse', group='parse')
+    def put(self, object_id):
+        form = self.put_form()
+        payload = form.data
+
+        res = self.model.put(
+            collection='users',
+            object_id=object_id,
+            payload=payload,
+            master_key=True)
+        return res
+```
+
+`@requires_auth` will check if the request has `authentication` token. If not, return error.
+`@limit(requests=100, window=30, by='ip', group=None)` if the number of requests sent from an IP to an endpoint `group` is greater than `request_limit` in time interval `window`. If it is, return error.
+`@@limit(requests=30, window=1, by='parse', group='parse')` if the number of requests exceed capability of the server. If it does, return error.
+
+####Create endpoint and its associate controller
+Just simply add the followings to app.py
+
+```python
+api.add_resource(UsersController, 'users')
+api.add_resource(UserController, 'users/<string:object_id>')
+```
+
+Where `UsersController` is the controller to handle `users` endpoint and `UserController` handles `users/<string:object_id>`.
