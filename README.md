@@ -4,13 +4,14 @@
 [![Coverage Status](https://coveralls.io/repos/nghiattran/python-parse/badge.svg?branch=master&service=github)](https://coveralls.io/github/nghiattran/python-parse?branch=master)
 
 #Python-parse
-    Python REST API template for backend system using Parse.com.
+    Python API template for backend system using parse.com as database.
 
-[![image](python-parse.png)](https://github.com/nghiattran/python-parse)
+[![image](python-parse.png)](https://github.com/nghiattran/python-parse) 
 
-[Roadmap](https://github.com/nghiattran/python-parse#road-map)&nbsp;&nbsp;&nbsp;
-[Getting Started](https://github.com/nghiattran/python-parse#getting-started)&nbsp;&nbsp;&nbsp;
-[API architecture](https://github.com/nghiattran/python-parse/tree/master#api-architecture)&nbsp;&nbsp;&nbsp;
+[Roadmap](https://github.com/QuickApp/QuickAPI#road-map)&nbsp;&nbsp;&nbsp;
+[Getting Started](https://github.com/QuickApp/QuickAPI#getting-started)&nbsp;&nbsp;&nbsp;
+[API architecture](https://github.com/QuickApp/QuickAPI#api-architecture)&nbsp;&nbsp;&nbsp;
+[How to ](https://github.com/QuickApp/QuickAPI#how-to-use)&nbsp;&nbsp;&nbsp;
 
 #Road map
 
@@ -20,6 +21,8 @@ List of planning features:
 - [x] Limit request per interval
 - [ ] Email automation
 - [ ] Update documentation
+- [ ] Social network integration
+- [ ] Remove unused dependencies
 
 # Getting started
 
