@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/nghiattran/python-parse/badge.svg?branch=master&service=github)](https://coveralls.io/github/nghiattran/python-parse?branch=master)
 
 #Python-parse
-    Python API template for backend system using parse.com as database.
+    Python REST API template for backend system using Parse.com.
 
 [![image](python-parse.png)](https://github.com/nghiattran/python-parse)
 
