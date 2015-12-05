@@ -18,11 +18,3 @@ class UserModel(BaseModel):
         if 'error' not in res:
             res['token'] = generate_auth_token(res);
         return res
-
-    def user_resetpassword(self, payload):
-        res = self.password_reset(payload = payload)
-        return res
-
-    def user_update(self, objectId):
-        payload = self.mapping_entry(class_name=self._parse_class_name)
-        return payload

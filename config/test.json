@@ -1,4 +1,5 @@
 {
+  "_comment": "You need to change everything in this file except PARSE_URL to your application information",
   "PARSE_URL": "https://api.parse.com/1",
   "PARSE_REST_KEY": "6u6FTDhqC4s84UWJjRA4wJNIxOqxWNT3iLZHfTkj",
   "PARSE_APP_ID": "aNcLKlFlOSSlgFHdyelHlMLzgVxUB5MutK2Dsn4K",

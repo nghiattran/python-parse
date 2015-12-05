@@ -2,9 +2,7 @@ import json
 import requests
 import urllib
 from src.utils import\
-    get_config,\
-    get_schema
-from flask import request
+    get_config
 from requests.exceptions import\
     ConnectionError
 
@@ -108,46 +106,3 @@ class BaseModel(object):
     def password_reset(self, payload):
         res = self.post(collection = "requestPasswordReset", payload=payload)
         return res
-
-    def mapping_entry(self, class_name):
-        utils_map = get_schema(key = "_Utils");
-        map = get_schema(key = class_name);
-
-        combined_map = map.copy()
-        combined_map.update(utils_map)
-        payload = self.filter_data(
-            map=combined_map,
-            data=request.args
-        )
-
-        if 'where' in request.args and request.args['where'] is not None:
-            payload['where'] = json.loads(request.args['where'])
-            if '$or' in payload['where']:
-                where = {'$or': []}
-                for condition in payload['where']['$or']:
-                    or_condition = self.filter_data(
-                        map=map,
-                        data=condition
-                    )
-                    where['$or'].append(or_condition)
-            else:
-                where = self.filter_data(
-                    map=map,
-                    data=payload['where']
-                )
-
-            where= json.dumps(where)
-            payload['where'] = where
-
-        return payload
-
-    def filter_data(self, map, data):
-        payload = {}
-        for key in map:
-            if key in data:
-                if type(map[key]) is dict:
-                    payload[key] = map[key]
-                    payload[key]['object_id'] = data[key]
-                else:
-                    payload[key] = data[key]
-        return payload
