@@ -1,11 +1,7 @@
-__author__ = 'nghia'
-
 from flask import\
     Flask
 from flask_restful import\
     Api
-from src.controllers.test_controller import\
-    TestController
 from src.controllers.user_controller import \
     UsersController,\
     SignupController, \

@@ -1,4 +1,3 @@
-__author__ = 'nghia'
 from src.models.authentication_model import \
     generate_auth_token
 from src.models import BaseModel

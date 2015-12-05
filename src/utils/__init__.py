@@ -1,4 +1,3 @@
-__author__ = 'nghia'
 import json
 from flask import\
     request

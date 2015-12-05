@@ -1,5 +1,3 @@
-__author__ = 'nghia'
-
 import json
 from test import BaseTestCase
 

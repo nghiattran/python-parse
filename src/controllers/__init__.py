@@ -1,7 +1,4 @@
-__author__ = 'nghia'
 
-from src.models.test_model import\
-    TestModel
 from src.models.user_model import\
     UserModel
 from src.forms.user_form import\
