@@ -16,8 +16,6 @@ app.debug = True
 
 api = Api(app, prefix="/api/")
 
-api.add_resource(TestController, '')
-
 api.add_resource(UsersController, 'users')
 api.add_resource(UserController, 'users/<string:object_id>')
 

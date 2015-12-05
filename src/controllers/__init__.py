@@ -19,9 +19,6 @@ class BaseController(Resource):
             return False
         return True
 
-class BaseTestController(BaseController):
-    model = TestModel()
-
 class BaseUserController(BaseController):
     model = UserModel()
     get_form = UserGetForm
