@@ -220,3 +220,9 @@ api.add_resource(UserController, 'users/<string:object_id>')
 ```
 
 Where `UsersController` is the controller to handle `users` endpoint and `UserController` handles `users/<string:object_id>`.
+
+#License
+&nbsp;&nbsp;&nbsp;[License](https://github.com/QuickApp/LICENSE)
+
+#Credits
+[Kien Pham](https://github.com/kienpham2000)
