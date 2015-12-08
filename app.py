@@ -1,11 +1,7 @@
-__author__ = 'nghia'
-
 from flask import\
     Flask
 from flask_restful import\
     Api
-from src.controllers.test_controller import\
-    TestController
 from src.controllers.user_controller import \
     UsersController,\
     SignupController, \
@@ -19,8 +15,6 @@ app.redis = redis.StrictRedis(host='localhost', port=6379, db=0)
 app.debug = True
 
 api = Api(app, prefix="/api/")
-
-api.add_resource(TestController, '')
 
 api.add_resource(UsersController, 'users')
 api.add_resource(UserController, 'users/<string:object_id>')

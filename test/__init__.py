@@ -1,5 +1,3 @@
-__author__ = 'nghia'
-
 import json
 import string
 import random

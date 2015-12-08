@@ -1,5 +1,3 @@
-__author__ = 'nghia'
-
 from wtforms import\
     Form,\
     validators,\

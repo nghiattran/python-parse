@@ -1,7 +1,4 @@
-__author__ = 'nghia'
 
-from src.models.test_model import\
-    TestModel
 from src.models.user_model import\
     UserModel
 from src.forms.user_form import\
@@ -21,9 +18,6 @@ class BaseController(Resource):
         if 'error' in res:
             return False
         return True
-
-class BaseTestController(BaseController):
-    model = TestModel()
 
 class BaseUserController(BaseController):
     model = UserModel()

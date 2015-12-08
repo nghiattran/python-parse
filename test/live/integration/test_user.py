@@ -1,8 +1,6 @@
-__author__ = 'nghia'
-
-import json
 from test import BaseTestCase
-
+from src.utils import\
+    get_config
 
 class UserTestCase(BaseTestCase):
     # Test signup
@@ -10,7 +8,7 @@ class UserTestCase(BaseTestCase):
     def test_signup(self):
         payload = {
             'username': self.random_string(length=20),
-            'password': 'testing'
+            'password': get_config(key="TEST_PASSWORD")
         }
         res = self.post_data(url='signup', data=payload)
 
@@ -25,7 +23,7 @@ class UserTestCase(BaseTestCase):
 
         payload = {
             'username': res['results'][0]['username'],
-            'password': 'testing'
+            'password': get_config(key="TEST_PASSWORD")
         }
         res = self.post_data(url='signup', data=payload)
 
@@ -83,7 +81,7 @@ class UserTestCase(BaseTestCase):
 
         params = {
             'username': res['results'][0]['username'],
-            'password': 'testing'
+            'password': get_config(key="TEST_PASSWORD")
         }
         res = self.get_data(url='login', params=params)
 
@@ -100,7 +98,7 @@ class UserTestCase(BaseTestCase):
         url = 'users/' + res['results'][0]['objectId']
         payload = {
             'username': res['results'][0]['username'],
-            'password': 'testing',
+            'password': get_config(key="TEST_PASSWORD"),
             'phone': 'phone has changed'
         }
         res = self.put_data(url=url, data=payload)
@@ -113,7 +111,7 @@ class UserTestCase(BaseTestCase):
     def test_delete(self):
         payload = {
             'username': self.random_string(length=20),
-            'password': 'testing'
+            'password': get_config(key="TEST_PASSWORD")
         }
         res = self.post_data(url='signup', data=payload)
 
