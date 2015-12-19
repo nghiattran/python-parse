@@ -8,7 +8,8 @@ from wtforms import\
 from src.forms import \
     BaseGetForm,\
     BasePostForm,\
-    BasePutForm
+    BasePutForm,\
+    JSONField
 
 class UserGetForm(BaseGetForm):
     username = StringField()
@@ -32,3 +33,6 @@ class UserLoginForm(BaseGetForm):
 
 class UserResetPasswordForm(BasePostForm):
     email = StringField()
+
+class AuthDataForm(BasePostForm):
+    authData = JSONField()

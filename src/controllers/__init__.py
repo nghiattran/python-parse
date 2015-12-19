@@ -6,7 +6,8 @@ from src.forms.user_form import\
     UserPutForm, \
     UserSignupForm,\
     UserLoginForm,\
-    UserResetPasswordForm
+    UserResetPasswordForm,\
+    AuthDataForm
 from src.models.authentication_model import\
     validate_auth_token
 
@@ -25,4 +26,5 @@ class BaseUserController(BaseController):
     put_form = UserPutForm
     signup_form = UserSignupForm
     login_form = UserLoginForm
+    auth_form = AuthDataForm
     reset_password_form = UserResetPasswordForm

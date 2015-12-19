@@ -33,7 +33,6 @@ class BaseAPIForm(Form):
                     MultiDict()
                 )
             except BadRequest, e:
-                # throw error for bad JSON:
                 if self._data_location == 'json':
                     raise ValidationError("Invalid JSON1")
                 else:
