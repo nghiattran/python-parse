@@ -6,9 +6,11 @@ class UserTestCase(BaseTestCase):
     # Test signup
 
     def test_signup(self):
+        string = self.random_string(length=20)
         payload = {
-            'username': self.random_string(length=20),
-            'password': get_config(key="TEST_PASSWORD")
+            'username': string,
+            'password': get_config(key="TEST_PASSWORD"),
+            'email': "%s@email.com" % string
         }
         res = self.post_data(url='signup', data=payload)
 
@@ -109,9 +111,11 @@ class UserTestCase(BaseTestCase):
     # Test delete
 
     def test_delete(self):
+        string = self.random_string(length=20)
         payload = {
-            'username': self.random_string(length=20),
-            'password': get_config(key="TEST_PASSWORD")
+            'username': string,
+            'password': get_config(key="TEST_PASSWORD"),
+            'email': "%s@email.com" % string
         }
         res = self.post_data(url='signup', data=payload)
 

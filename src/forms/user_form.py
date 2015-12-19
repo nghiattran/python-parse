@@ -14,6 +14,7 @@ class UserGetForm(BaseGetForm):
     username = StringField()
     password = HiddenField()
     phone = StringField()
+    email = StringField()
 
 class UserPutForm(BasePutForm):
     username = StringField()
@@ -23,6 +24,7 @@ class UserPutForm(BasePutForm):
 class UserSignupForm(BasePostForm):
     username = StringField()
     password = HiddenField()
+    email = StringField()
 
 class UserLoginForm(BaseGetForm):
     username = StringField()

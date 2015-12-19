@@ -2,6 +2,7 @@ from flask import\
     Flask
 from flask_restful import\
     Api
+from flask.ext.cors import CORS
 from src.controllers.user_controller import \
     UsersController,\
     SignupController, \
@@ -15,6 +16,7 @@ app.redis = redis.StrictRedis(host='localhost', port=6379, db=0)
 app.debug = True
 
 api = Api(app, prefix="/api/")
+CORS(app)
 
 api.add_resource(UsersController, 'users')
 api.add_resource(UserController, 'users/<string:object_id>')
