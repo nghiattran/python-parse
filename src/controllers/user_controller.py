@@ -105,3 +105,16 @@ class ResetpasswordController(BaseUserController):
             payload=payload
         )
         return res
+
+class AuthController(BaseUserController):
+    @limit(requests=100, window=30, by='ip', group=None)
+    @limit(requests=30, window=1, by='parse', group='parse')
+    def post(self):
+        form = self.auth_form()
+        payload = form.data
+
+        res = self.model.user_signup(
+            payload=payload
+        )
+
+        return res

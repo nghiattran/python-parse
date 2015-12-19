@@ -8,7 +8,8 @@ from src.controllers.user_controller import \
     SignupController, \
     LoginController,\
     ResetpasswordController,\
-    UserController
+    UserController,\
+    AuthController
 import redis
 
 app = Flask(__name__)
@@ -26,6 +27,8 @@ api.add_resource(LoginController, 'login')
 api.add_resource(SignupController, 'signup')
 
 api.add_resource(ResetpasswordController, 'resetpassword')
+
+api.add_resource(AuthController, 'auth')
 
 if __name__ == '__main__':
     app.run(debug=True)
