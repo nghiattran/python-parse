@@ -51,7 +51,7 @@ def send_email_template(email_to, subject, template_id, subs, email_from):
     return sg.send(message)
 
 def send_email(email_to, subject, content, subs, email_from=None):
-    if get_config(key="SENDGRID") == '0':
+    if get_config(key="SENDGRID") == 0:
         return 200, "Not send"
 
     sg, message = sendgrid_init(email_to,subject, subs, email_from)
