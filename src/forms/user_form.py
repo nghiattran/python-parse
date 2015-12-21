@@ -4,7 +4,8 @@ from wtforms import\
     StringField,\
     IntegerField,\
     HiddenField,\
-    BooleanField
+    BooleanField,\
+    PasswordField
 from src.forms import \
     BaseGetForm,\
     BasePostForm,\
@@ -18,9 +19,16 @@ class UserGetForm(BaseGetForm):
     email = StringField()
 
 class UserPutForm(BasePutForm):
-    username = StringField()
-    password = HiddenField()
+    username = StringField('Username', [
+        validators.DataRequired(message="username required")
+    ])
+    password = PasswordField('Password', [validators.DataRequired()])
+
+    old_password = PasswordField('Old Password', [
+        validators.EqualTo('re_old_password')])
+    re_old_password = PasswordField('Confirm', [])
     phone = StringField()
+    email = StringField()
 
 class UserSignupForm(BasePostForm):
     username = StringField()

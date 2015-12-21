@@ -41,13 +41,30 @@ class BaseAPIForm(Form):
             if self._data_location == 'json' and type(data) is not dict:
                 raise ValidationError('Invalid JSON2')
 
-            formdata = MultiDict(data)
+            self._formdata = MultiDict(data)
 
         super(BaseAPIForm, self).__init__(
-            formdata=formdata,
+            formdata=self._formdata,
             obj=obj,
             prefix=prefix)
-        pass
+
+    def filter_data(self):
+        payload = {}
+        for key in self._formdata.viewkeys() & self.data.viewkeys():
+            payload[key] = self.data[key]
+
+        return payload
+
+    def validate(self):
+        validate_result = super(BaseAPIForm, self).validate()
+        if not validate_result:
+            for k, v in self.errors.iteritems():
+                self.error_message = v[0]
+                break
+
+            return False
+
+        return validate_result
 
 class JSONField(StringField):
     def pre_validate(self, form):

@@ -18,14 +18,17 @@ class UsersController(BaseUserController):
     @limit(requests=30, window=1, by='parse', group='parse')
     def get(self):
         form = self.get_form()
-        params = form.data
+        if form.validate():
+            params = form.filter_data()
 
-        res = self.model.get(
-            collection='users',
-            params=params)
+            res = self.model.get(
+                collection='users',
+                params=params)
 
-        res['params'] = params
-        return res
+            res['params'] = params
+            return res
+
+        return {'error':'Unvalid inputs', 'code': 400}
 
 
 class UserController(BaseUserController):
@@ -49,14 +52,15 @@ class UserController(BaseUserController):
     @limit(requests=30, window=1, by='parse', group='parse')
     def put(self, object_id):
         form = self.put_form()
-        payload = form.data
+        if form.validate():
+            payload = form.filter_data()
 
-        res = self.model.put(
-            collection='users',
-            object_id=object_id,
-            payload=payload,
-            master_key=True)
-        return res
+            res = self.model.user_update(
+                payload=payload,
+                object_id=object_id)
+            return res
+
+        return {'error':'Unvalid inputs', 'code': 400}
 
     @requires_auth
     @limit(requests=100, window=30, by='ip', group=None)
@@ -75,12 +79,15 @@ class SignupController(BaseUserController):
     @limit(requests=30, window=1, by='parse', group='parse')
     def post(self):
         form = self.signup_form()
-        payload = form.data
+        if form.validate():
+            payload = form.filter_data()
 
-        res = self.model.user_signup(
-            payload=payload
-        )
-        return res
+            res = self.model.user_signup(
+                payload=payload
+            )
+            return res
+
+        return {'error':'Unvalid inputs', 'code': 400}
 
 
 class LoginController(BaseUserController):
@@ -88,38 +95,42 @@ class LoginController(BaseUserController):
     @limit(requests=30, window=1, by='parse', group='parse')
     def get(self):
         form = self.login_form()
-        params = form.data
+        if form.validate():
+            params = form.filter_data()
 
-        res = self.model.user_login(
-            params= params
-        )
-        return res
-
+            res = self.model.user_login(
+                params= params
+            )
+            return res
+        return {'error':'Unvalid inputs', 'code': 400}
 
 class ResetpasswordController(BaseUserController):
     @limit(requests=100, window=30, by='ip', group=None)
     @limit(requests=30, window=1, by='parse', group='parse')
     def post(self):
         form = self.reset_password_form()
-        where = form.data
+        if form.validate():
+            where = form.filter_data()
 
-        res = self.model.user_reset_password(
-            where=where
-        )
-        return res
+            res = self.model.user_reset_password(
+                where=where
+            )
+            return res
+        return {'error':'Unvalid inputs', 'code': 400}
 
 class AuthController(BaseUserController):
     @limit(requests=100, window=30, by='ip', group=None)
     @limit(requests=30, window=1, by='parse', group='parse')
     def post(self):
         form = self.auth_form()
-        payload = form.data
+        if form.validate():
+            payload = form.filter_data()
+            res = self.model.user_signup(
+                payload=payload
+            )
 
-        res = self.model.user_signup(
-            payload=payload
-        )
-
-        return res
+            return res
+        return {'error':'Unvalid inputs', 'code': 400}
 
 class UserActivationController(BaseUserController):
     @limit(requests=100, window=30, by='ip', group=None)
