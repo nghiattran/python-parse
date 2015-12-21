@@ -11,6 +11,7 @@ class UserModel(BaseModel):
     _parse_class_name = '_User'
 
     def user_update(self, payload, object_id):
+        # Params for checking user's credentials and payload for updating
         params = payload.copy()
         remove = ('username','password','old_password','re_old_password')
         for object in remove:
@@ -19,10 +20,12 @@ class UserModel(BaseModel):
             payload['password'] = params['password']
             params['password'] = params['old_password']
 
+        # Login to check user's credentials first
         res = self.login(params = params)
         if 'error' in res:
             return res
-        # return payload
+
+        # Perform updating
         res = self.put(
             collection='users',
             object_id=object_id,
@@ -32,12 +35,16 @@ class UserModel(BaseModel):
 
     def user_login(self, params):
         res = self.login(params = params)
+
+        # Generate user's token
         if 'error' not in res:
             res['token'] = generate_auth_token(res);
         return res
 
     def user_signup(self, payload):
         res = self.signup(payload = payload)
+
+        # Generate user's token
         if 'error' not in res:
             res['token'] = generate_auth_token(res);
             status, msg = send_activation_email(email=payload['email'], objectId=res['objectId'])
@@ -46,6 +53,7 @@ class UserModel(BaseModel):
         return res
 
     def user_reset_password(self, where):
+        # Get user's infomation for sending email
         where.pop('objectId', 0)
         params = {
             'where':json.dumps(where),
@@ -59,6 +67,7 @@ class UserModel(BaseModel):
         if 'error' in user:
             return user
 
+        # Reset user's password
         payload = {
             'objectId':user['results'][0]['objectId'],
             'password': random_string(15)
@@ -71,6 +80,7 @@ class UserModel(BaseModel):
             master_key=True)
 
         if 'error' not in res:
+            # Sending notification email
             status, msg = send_reset_password_email(
                 email=user['results'][0]['email'],
                 username=user['results'][0]['username'],
