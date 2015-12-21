@@ -23,7 +23,6 @@ List of planning features:
 - [ ] Update documentation
 - [x] Social network integration
 - [ ] Remove unused dependencies
-- [ ] Fix updating unecessary fields
 
 # Getting started
 
