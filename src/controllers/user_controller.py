@@ -23,6 +23,8 @@ class UsersController(BaseUserController):
         res = self.model.get(
             collection='users',
             params=params)
+
+        res['params'] = params
         return res
 
 
@@ -99,10 +101,10 @@ class ResetpasswordController(BaseUserController):
     @limit(requests=30, window=1, by='parse', group='parse')
     def post(self):
         form = self.reset_password_form()
-        payload = form.data
+        where = form.data
 
-        res = self.model.password_reset(
-            payload=payload
+        res = self.model.user_reset_password(
+            where=where
         )
         return res
 
@@ -124,7 +126,7 @@ class UserActivationController(BaseUserController):
     @limit(requests=30, window=1, by='parse', group='parse')
     def get(self, object_id):
         payload = {
-            'emailVerified': True
+            'email_verified': True
         }
 
         res = self.model.put(

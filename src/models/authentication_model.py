@@ -55,7 +55,6 @@ def limit(requests=100, window=30, by='ip', group=None):
             else:
                 identification = by
 
-            # Get endpoint
             endpoint = group or request.endpoint
 
             key = ':'.join(['rl', endpoint, identification])
@@ -75,6 +74,5 @@ def limit(requests=100, window=30, by='ip', group=None):
                 return f(*args, **kwargs)
             else:
                 return {'error': 'Too Many Requests', 'code': 429}
-            pass
         return decorated
     return decorator

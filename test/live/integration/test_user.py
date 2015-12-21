@@ -1,3 +1,4 @@
+import json
 from test import BaseTestCase
 from src.utils import\
     get_config
@@ -58,11 +59,11 @@ class UserTestCase(BaseTestCase):
 
     def test_get_data_limit_ten(self):
         params = {
-            'limit': 1
+            'limit': 10
         }
         res = self.get_data(url='users', params=params)
         assert 'results' in res
-        assert len(res['results']) is 1
+        assert len(res['results']) is 10
 
     def test_get_data_count(self):
         params = {
@@ -76,15 +77,15 @@ class UserTestCase(BaseTestCase):
     # Test login
 
     def test_login(self):
-        params = {
-            'keys': 'phone,username'
+        string = self.random_string(length=20)
+        payload = {
+            'username': string,
+            'password': get_config(key="TEST_PASSWORD"),
+            'email': "%s@email.com" % string
         }
-        res = self.get_data(url='users', params=params)
+        res = self.post_data(url='signup', data=payload)
 
-        params = {
-            'username': res['results'][0]['username'],
-            'password': get_config(key="TEST_PASSWORD")
-        }
+        params = payload
         res = self.get_data(url='login', params=params)
 
         assert 'objectId' in res
@@ -123,3 +124,19 @@ class UserTestCase(BaseTestCase):
         res = self.delete_data(url=url)
 
         assert 'error' not in res
+
+    # Test reset password
+
+    def test_reset_password(self):
+        string = self.random_string(length=20)
+        payload = {
+            'username': string,
+            'password': get_config(key="TEST_PASSWORD"),
+            'email': "%s@email.com" % string
+        }
+        user = self.post_data(url='signup', data=payload)
+
+        res = self.post_data(url='resetpassword', data=payload)
+
+        assert 'updatedAt' in res
+        assert res['email']['status'] is 200

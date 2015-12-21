@@ -14,11 +14,7 @@ from src.models.authentication_model import\
 from flask_restful import Resource, Api
 
 class BaseController(Resource):
-    def validate_authetication(self, token):
-        res = validate_auth_token(token)
-        if 'error' in res:
-            return False
-        return True
+    pass
 
 class BaseUserController(BaseController):
     model = UserModel()

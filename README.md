@@ -8,21 +8,22 @@
 
 [![image](python-parse.png)](https://github.com/nghiattran/python-parse) 
 
-[Roadmap](https://github.com/QuickApp/QuickAPI#road-map)&nbsp;&nbsp;&nbsp;
-[Getting Started](https://github.com/QuickApp/QuickAPI#getting-started)&nbsp;&nbsp;&nbsp;
-[API architecture](https://github.com/QuickApp/QuickAPI#api-architecture)&nbsp;&nbsp;&nbsp;
-[How to ](https://github.com/QuickApp/QuickAPI#how-to-use)&nbsp;&nbsp;&nbsp;
+[Roadmap](https://github.com/nghiattran/python-parse#road-map)&nbsp;&nbsp;&nbsp;
+[Getting Started](https://github.com/nghiattran/python-parse#getting-started)&nbsp;&nbsp;&nbsp;
+[API architecture](https://github.com/nghiattran/python-parse#api-architecture)&nbsp;&nbsp;&nbsp;
+[How to ](https://github.com/nghiattran/python-parse#how-to-use)&nbsp;&nbsp;&nbsp;
 
 #Road map
 
 List of planning features:
 
 - [x] Limit request per IP
-- [x] Limit request per interval
-- [ ] Email automation
+- [x] Limit request per interval of time
+- [x] Email automation
 - [ ] Update documentation
-- [ ] Social network integration
+- [x] Social network integration
 - [ ] Remove unused dependencies
+- [ ] Fix updating unecessary fields
 
 # Getting started
 
@@ -36,7 +37,7 @@ List of planning features:
     # start redis
     bin/start_redis
     #start api in port 8000
-    bin/install
+    bin/start
     
 ###Testing
     
@@ -222,7 +223,7 @@ api.add_resource(UserController, 'users/<string:object_id>')
 Where `UsersController` is the controller to handle `users` endpoint and `UserController` handles `users/<string:object_id>`.
 
 #License
-&nbsp;&nbsp;&nbsp;[License](https://github.com/QuickApp/LICENSE)
+&nbsp;&nbsp;&nbsp;[License](https://github.com/nghiattran/LICENSE)
 
 #Credits
 [Kien Pham](https://github.com/kienpham2000)
