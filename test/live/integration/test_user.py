@@ -97,17 +97,18 @@ class UserTestCase(BaseTestCase):
         params = {
             'keys': 'phone,username'
         }
-        res = self.get_data(url='users', params=params)
-        url = 'users/' + res['results'][0]['objectId']
+        user = self.get_data(url='users', params=params)
+        url = 'users/' + user['results'][0]['objectId']
         payload = {
-            'username': res['results'][0]['username'],
+            'username': user['results'][0]['username'],
             'password': get_config(key="TEST_PASSWORD"),
             'phone': 'phone has changed'
         }
         res = self.put_data(url=url, data=payload)
+        user = self.get_data(url='users/' + user['results'][0]['objectId'])
 
+        assert user['results'][0]['phone'] == 'phone has changed'
         assert 'updatedAt' in res
-        assert res['phone'] in 'phone has changed'
 
     # Test delete
 
@@ -119,7 +120,6 @@ class UserTestCase(BaseTestCase):
             'email': "%s@email.com" % string
         }
         res = self.post_data(url='signup', data=payload)
-
         url = 'users/' + res['objectId']
         res = self.delete_data(url=url)
 

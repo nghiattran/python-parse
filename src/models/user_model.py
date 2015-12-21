@@ -9,6 +9,27 @@ from src.utils import \
 
 class UserModel(BaseModel):
     _parse_class_name = '_User'
+
+    def user_update(self, payload, object_id):
+        params = payload.copy()
+        remove = ('username','password','old_password','re_old_password')
+        for object in remove:
+            payload.pop(object, None)
+        if 'old_password' in params:
+            payload['password'] = params['password']
+            params['password'] = params['old_password']
+
+        res = self.login(params = params)
+        if 'error' in res:
+            return res
+        # return payload
+        res = self.put(
+            collection='users',
+            object_id=object_id,
+            payload=payload,
+            master_key=True)
+        return res
+
     def user_login(self, params):
         res = self.login(params = params)
         if 'error' not in res:
