@@ -19,7 +19,7 @@ class UsersController(BaseUserController):
     def get(self):
         form = self.get_form()
         if form.validate():
-            params = form.data
+            params = form.filter_data()
 
             res = self.model.get(
                 collection='users',
@@ -80,7 +80,7 @@ class SignupController(BaseUserController):
     def post(self):
         form = self.signup_form()
         if form.validate():
-            payload = form.data
+            payload = form.filter_data()
 
             res = self.model.user_signup(
                 payload=payload
@@ -96,7 +96,7 @@ class LoginController(BaseUserController):
     def get(self):
         form = self.login_form()
         if form.validate():
-            params = form.data
+            params = form.filter_data()
 
             res = self.model.user_login(
                 params= params
@@ -110,7 +110,7 @@ class ResetpasswordController(BaseUserController):
     def post(self):
         form = self.reset_password_form()
         if form.validate():
-            where = form.data
+            where = form.filter_data()
 
             res = self.model.user_reset_password(
                 where=where
@@ -124,7 +124,7 @@ class AuthController(BaseUserController):
     def post(self):
         form = self.auth_form()
         if form.validate():
-            payload = form.data
+            payload = form.filter_data()
             res = self.model.user_signup(
                 payload=payload
             )
