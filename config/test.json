@@ -22,10 +22,16 @@
   "_comment": "JWT_KEY for checking authorization",
   "JWT_KEY": "qwertyuiopasdfghjklzxcvbnm123456",
 
-
+  "_comment": "Email automation",
   "_comment": "Change SENDGRID to 1 to use built-in and 0 to not",
   "SENDGRID": 0,
   "SENDGRID_API_KEY": "PLACE YOUR SENDGRID API KEY",
   "EMAIL_FROM_NAME": "test user",
-  "EMAIL_FROM": "email@email.com"
+  "EMAIL_FROM": "email@email.com",
+
+
+  "_comment": "SMS automation",
+  "TWILLIO_ACCOUNT": "ACc74b2cc7b09b0cee62ec2365e625819a",
+  "TWILLIO_AUTH_TOKEN": "e3cc20902f50059d8770cbd75b43b52a",
+  "TWILLIO_NUMBER": "+14243391102"
 }

@@ -23,9 +23,16 @@
   "JWT_KEY": "PLACE YOUR JWT KEY HERE",
 
 
-  "_comment": "Change SENDGRID to 1 to use built-in and 0 to not",
+  "_comment": "Email automation",
+  "_comment": "Change SENDGRID to 1 to use built-in email automation and 0 to not",
   "SENDGRID": 0,
   "SENDGRID_API_KEY": "PLACE YOUR SENDGRID API KEY",
   "EMAIL_FROM_NAME": "PLACE YOUR NAME",
-  "EMAIL_FROM": "PLACE YOUR EMAIL"
+  "EMAIL_FROM": "PLACE YOUR EMAIL",
+
+
+  "_comment": "SMS automation",
+  "TWILLIO_ACCOUNT": "YOUR ACCOUNT SID",
+  "TWILLIO_AUTH_TOKEN": "YOUR AUTH TOKEN",
+  "TWILLIO_NUMBER": "YOUR TWILLIO NUMBER"
 }

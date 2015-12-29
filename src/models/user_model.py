@@ -2,10 +2,8 @@ import json
 from src.models.authentication_model import \
     generate_auth_token
 from src.models import BaseModel
-from src.utils import \
-    send_activation_email,\
-    random_string, \
-    send_reset_password_email
+from src.utils import random_string
+from src.models.email_model import send_activation_email, send_reset_password_email
 
 class UserModel(BaseModel):
     _parse_class_name = '_User'
@@ -66,6 +64,11 @@ class UserModel(BaseModel):
 
         if 'error' in user:
             return user
+        elif len(user['results']) != 1:
+            return {
+                'error':404,
+                'message': 'Invalid email'
+            }
 
         # Reset user's password
         payload = {
