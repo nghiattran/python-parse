@@ -4,6 +4,17 @@
   "API_LINK": "http://localhost:8000/api/",
   "APP_LINK": "http://localhost:8000/",
 
+  "_comment": "Config for request_limits",
+  "REQUEST_LIMITS" : {
+    "PER_IP_LIMIT": {
+      "NUM_REQUESTS": 100,
+      "INTERVAL": 30
+    },
+    "PARSE_LIMIT": {
+      "NUM_REQUESTS": 30,
+      "INTERVAL": 1
+    }
+  },
 
   "_comment": "Testing information NO NEED TO CHANGE",
   "TEST_API_URL": "http://localhost:5000/api",
@@ -34,4 +45,6 @@
   "TWILLIO_ACCOUNT": "ACc74b2cc7b09b0cee62ec2365e625819a",
   "TWILLIO_AUTH_TOKEN": "e3cc20902f50059d8770cbd75b43b52a",
   "TWILLIO_NUMBER": "+14243391102"
+
+
 }

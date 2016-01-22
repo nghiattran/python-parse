@@ -4,7 +4,7 @@ from src.controllers import\
     BaseUserController
 from src.models.authentication_model import\
     requires_auth,\
-    limit
+    check_all_request_limit
 
 _parse_class_name = BaseUserController.model._parse_class_name
 
@@ -12,10 +12,7 @@ _parse_class_name = BaseUserController.model._parse_class_name
 class UsersController(BaseUserController):
     # Require authentication token
     @requires_auth
-    # Limit number of requests per IP
-    @limit(requests=100, window=30, by='ip', group=None)
-    # Limit number of requests per second
-    @limit(requests=30, window=1, by='parse', group='parse')
+    @check_all_request_limit
     def get(self):
         form = self.get_form()
         if form.validate():
@@ -33,8 +30,7 @@ class UsersController(BaseUserController):
 
 class UserController(BaseUserController):
     @requires_auth
-    @limit(requests=100, window=30, by='ip', group=None)
-    @limit(requests=30, window=1, by='parse', group='parse')
+    @check_all_request_limit
     def get(self, object_id):
         where = {
             'objectId': object_id
@@ -48,8 +44,7 @@ class UserController(BaseUserController):
         return res
 
     @requires_auth
-    @limit(requests=100, window=30, by='ip', group=None)
-    @limit(requests=30, window=1, by='parse', group='parse')
+    @check_all_request_limit
     def put(self, object_id):
         form = self.put_form()
         if form.validate():
@@ -63,8 +58,7 @@ class UserController(BaseUserController):
         return {'error':'Unvalid inputs', 'code': 400}
 
     @requires_auth
-    @limit(requests=100, window=30, by='ip', group=None)
-    @limit(requests=30, window=1, by='parse', group='parse')
+    @check_all_request_limit
     def delete(self, object_id):
         res = self.model.delete(
             collection='users',
@@ -75,8 +69,7 @@ class UserController(BaseUserController):
 
 
 class SignupController(BaseUserController):
-    @limit(requests=100, window=30, by='ip', group=None)
-    @limit(requests=30, window=1, by='parse', group='parse')
+    @check_all_request_limit
     def post(self):
         form = self.signup_form()
         if form.validate():
@@ -91,8 +84,7 @@ class SignupController(BaseUserController):
 
 
 class LoginController(BaseUserController):
-    @limit(requests=100, window=30, by='ip', group=None)
-    @limit(requests=30, window=1, by='parse', group='parse')
+    @check_all_request_limit
     def get(self):
         form = self.login_form()
         if form.validate():
@@ -105,8 +97,7 @@ class LoginController(BaseUserController):
         return {'error':'Unvalid inputs', 'code': 400}
 
 class ResetpasswordController(BaseUserController):
-    @limit(requests=100, window=30, by='ip', group=None)
-    @limit(requests=30, window=1, by='parse', group='parse')
+    @check_all_request_limit
     def post(self):
         form = self.reset_password_form()
         if form.validate():
@@ -119,8 +110,7 @@ class ResetpasswordController(BaseUserController):
         return {'error':'Unvalid inputs', 'code': 400}
 
 class AuthController(BaseUserController):
-    @limit(requests=100, window=30, by='ip', group=None)
-    @limit(requests=30, window=1, by='parse', group='parse')
+    @check_all_request_limit
     def post(self):
         form = self.auth_form()
         if form.validate():
@@ -133,8 +123,7 @@ class AuthController(BaseUserController):
         return {'error':'Unvalid inputs', 'code': 400}
 
 class UserActivationController(BaseUserController):
-    @limit(requests=100, window=30, by='ip', group=None)
-    @limit(requests=30, window=1, by='parse', group='parse')
+    @check_all_request_limit
     def get(self, object_id):
         payload = {
             'email_verified': True
