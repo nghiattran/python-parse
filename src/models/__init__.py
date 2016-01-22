@@ -17,26 +17,30 @@ class BaseModel(object):
                               'roles', 'batch', 'schemas']
 
     def generate_header(self, master_key = None):
+
+        parse_info = get_config(key='PARSE_INFO')
+
         header = {
-            "X-Parse-Application-Id": get_config(key="PARSE_APP_ID"),
-            "X-Parse-REST-API-Key": get_config(key="PARSE_REST_KEY"),
-            "Content-Type": "application/json"
+            'X-Parse-Application-Id': parse_info['PARSE_APP_ID'],
+            'X-Parse-REST-API-Key': parse_info['PARSE_REST_KEY'],
+            'Content-Type': 'application/json'
         }
         if master_key:
-            header['X-Parse-Master-Key']= get_config(key="PARSE_MASTER_KEY")
+            header['X-Parse-Master-Key']= parse_info['PARSE_MASTER_KEY']
 
         return header
 
     def generate_url(self, collection, object_id = None):
-        base_url = get_config(key="PARSE_URL")
+        parse_info = get_config(key='PARSE_INFO')
+        base_url = parse_info['PARSE_URL']
 
         if collection in self._parse_special_classes:
-            url = "{}/{}".format(base_url, collection)
+            url = '{}/{}'.format(base_url, collection)
         else:
-            url = "{}/classes/{}".format(base_url, collection)
+            url = '{}/classes/{}'.format(base_url, collection)
 
         if object_id is not None:
-            url = "{}/{}".format(url, object_id)
+            url = '{}/{}'.format(url, object_id)
 
         return url
 
@@ -44,13 +48,14 @@ class BaseModel(object):
         url = self.generate_url(collection = collection)
         headers= self.generate_header()
         params = urllib.urlencode(params)
+
         try:
             res = requests.get(url=url, headers=headers,
                                params=params)
             return res.json()
         except ConnectionError as e:
-            return {'error': "Cannot connect to database. "
-                             "Please try again later."}
+            return {'error': 'Cannot connect to database. '
+                             'Please try again later.'}
         except Exception as e:
             return {'error': e.message}
 
@@ -63,8 +68,8 @@ class BaseModel(object):
                                    data=json.dumps(payload))
             return res.json()
         except ConnectionError as e:
-            return {'error': "Cannot connect to database. "
-                             "Please try again later."}
+            return {'error': 'Cannot connect to database. '
+                             'Please try again later.'}
         except Exception as e:
             return {'error': e.message}
 
@@ -77,8 +82,8 @@ class BaseModel(object):
                                    data=json.dumps(payload))
             return payload.json()
         except ConnectionError as e:
-            return {'error': "Cannot connect to database. "
-                             "Please try again later."}
+            return {'error': 'Cannot connect to database. '
+                             'Please try again later.'}
         except Exception as e:
             return {'error': e.message}
 
@@ -90,19 +95,19 @@ class BaseModel(object):
             res = requests.delete(url=url, headers=headers)
             return res.json()
         except ConnectionError as e:
-            return {'error': "Cannot connect to database. "
-                             "Please try again later."}
+            return {'error': 'Cannot connect to database. '
+                             'Please try again later.'}
         except Exception as e:
             return {'error': e.message}
 
     def login(self, params):
-        res = self.get(collection = "login", params=params)
+        res = self.get(collection = 'login', params=params)
         return res
 
     def signup(self, payload):
-        res = self.post(collection = "users", payload=payload)
+        res = self.post(collection = 'users', payload=payload)
         return res
 
     def password_reset(self, payload):
-        res = self.post(collection = "requestPasswordReset", payload=payload)
+        res = self.post(collection = 'requestPasswordReset', payload=payload)
         return res

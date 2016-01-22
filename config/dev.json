@@ -1,49 +1,51 @@
 {
-  "_comment": "Your app information",
-  "APP_NAME": "My App",
-  "API_LINK": "http://localhost:8000/api/",
-  "APP_LINK": "http://localhost:8000/",
-
-  "_comment": "Config for request_limits",
-  "REQUEST_LIMITS" : {
-    "PER_IP_LIMIT": {
-      "NUM_REQUESTS": 100,
-      "INTERVAL": 30
+    "_comment": "Your app information",
+    "APP_INFO": {
+        "APP_NAME": "My App",
+        "API_LINK": "http://localhost:8000/api/",
+        "APP_LINK": "http://localhost:8000/"
     },
-    "PARSE_LIMIT": {
-      "NUM_REQUESTS": 30,
-      "INTERVAL": 1
+
+    "_comment": "Config for request_limits",
+    "REQUEST_LIMITS" : {
+        "PER_IP_LIMIT": {
+            "NUM_REQUESTS": 100,
+            "INTERVAL": 30
+        },
+        "PARSE_LIMIT": {
+            "NUM_REQUESTS": 30,
+            "INTERVAL": 1
+        }
+    },
+
+    "_comment": "Testing information NO NEED TO CHANGE",
+    "TEST_API_URL": "http://localhost:5000/api",
+    "TEST_PASSWORD": "testing",
+    "TEST_TOKEN": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5naGlhOCIsInVwZGF0ZWRBdCI6IjIwMTUtMTEtMTlUMjM6Mzc6MjAuMjA0WiIsIm9iamVjdElkIjoiODJqU3NXeTZoVSIsImNyZWF0ZWRBdCI6IjIwMTUtMTEtMTlUMjM6Mzc6MjAuMjA0WiIsInNlc3Npb25Ub2tlbiI6ImVGNkZDUDF5ZkE3RjFESFdWUjYxbTVHbUsifQ.o4nBdmbBOFvNANQ1LffRNy2FUvI2JxQIM-RPDgJ2QMk",
+
+    "_comment": "Parse credentials",
+    "PARSE_INFO": {
+        "PARSE_URL": "https://api.parse.com/1",
+        "PARSE_REST_KEY": "PLACE YOUR PARSE_REST_KEY",
+        "PARSE_APP_ID": "PLACE YOUR PARSE_APP_ID",
+        "PARSE_CLIENT_KEY": "PLACE YOUR PARSE_CLIENT_KEY",
+        "PARSE_MASTER_KEY": "PLACE YOUR PARSE_MASTER_KEY"
+    },
+
+    "_comment": "JWT_KEY for checking authorization",
+    "JWT_KEY": "PLACE YOUR JWT KEY HERE",
+
+    "_comment": "Email automation",
+    "SENDGRID_INFO": {
+        "SENDGRID_API_KEY": "PLACE YOUR SENDGRID API KEY",
+        "SENDGRID_NAME": "test user",
+        "SENDGRID_EMAIL": "email@email.com"
+    },
+
+    "_comment": "SMS automation",
+    "TWILLIO_INFO": {
+        "TWILLIO_ACCOUNT": "YOUR ACCOUNT SID",
+        "TWILLIO_AUTH_TOKEN": "YOUR AUTH TOKEN",
+        "TWILLIO_NUMBER": "YOUR TWILLIO NUMBER"
     }
-  },
-
-  "_comment": "Testing information NO NEED TO CHANGE",
-  "TEST_API_URL": "http://localhost:5000/api",
-  "TEST_PASSWORD": "testing",
-  "TEST_TOKEN": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5naGlhOCIsInVwZGF0ZWRBdCI6IjIwMTUtMTEtMTlUMjM6Mzc6MjAuMjA0WiIsIm9iamVjdElkIjoiODJqU3NXeTZoVSIsImNyZWF0ZWRBdCI6IjIwMTUtMTEtMTlUMjM6Mzc6MjAuMjA0WiIsInNlc3Npb25Ub2tlbiI6ImVGNkZDUDF5ZkE3RjFESFdWUjYxbTVHbUsifQ.o4nBdmbBOFvNANQ1LffRNy2FUvI2JxQIM-RPDgJ2QMk",
-
-
-  "_comment": "Parse credentials",
-  "PARSE_URL": "https://api.parse.com/1",
-  "PARSE_REST_KEY": "PLACE YOUR PARSE_REST_KEY",
-  "PARSE_APP_ID": "PLACE YOUR PARSE_APP_ID",
-  "PARSE_CLIENT_KEY": "PLACE YOUR PARSE_CLIENT_KEY",
-  "PARSE_MASTER_KEY": "PLACE YOUR PARSE_MASTER_KEY",
-
-
-  "_comment": "JWT_KEY for checking authorization",
-  "JWT_KEY": "PLACE YOUR JWT KEY HERE",
-
-
-  "_comment": "Email automation",
-  "_comment": "Change SENDGRID to 1 to use built-in email automation and 0 to not",
-  "SENDGRID": 0,
-  "SENDGRID_API_KEY": "PLACE YOUR SENDGRID API KEY",
-  "EMAIL_FROM_NAME": "PLACE YOUR NAME",
-  "EMAIL_FROM": "PLACE YOUR EMAIL",
-
-
-  "_comment": "SMS automation",
-  "TWILLIO_ACCOUNT": "YOUR ACCOUNT SID",
-  "TWILLIO_AUTH_TOKEN": "YOUR AUTH TOKEN",
-  "TWILLIO_NUMBER": "YOUR TWILLIO NUMBER"
 }
