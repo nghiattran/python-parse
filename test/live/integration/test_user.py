@@ -134,10 +134,9 @@ class UserTestCase(BaseTestCase):
             'password': get_config(key="TEST_PASSWORD"),
             'email': "%s@email.com" % string
         }
-        print payload
-        user = self.post_data(url='signup', data=payload)
 
+        user = self.post_data(url='signup', data=payload)
         res = self.post_data(url='resetpassword', data=payload)
-        print res
+
         assert 'updatedAt' in res
         assert res['email']['status'] is 200
