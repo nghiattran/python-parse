@@ -1,3 +1,7 @@
+# @name <%= app_name %>
+# @description
+# All functions for authentication and authorization purposes
+
 import requests
 import jwt
 from flask import\
@@ -46,33 +50,59 @@ def requires_auth(f):
     return decorated
 
 
-def limit(requests=100, window=30, by='ip', group=None):
-    def decorator(f):
-        @wraps(f)
-        def decorated(*args, **kwargs):
-            if by is 'ip':
-                identification = request.remote_addr or 'test'
-            else:
-                identification = by
+def check_request_limit(requests=100, window=30, by='ip', group=None):
+    if by is 'ip':
+        identification = request.remote_addr or 'test'
+    else:
+        identification = by
 
-            endpoint = group or request.endpoint
+    endpoint = group or request.endpoint
 
-            key = ':'.join(['rl', endpoint, identification])
+    key = ':'.join(['rl', endpoint, identification])
 
-            try:
-                remaining = requests - int(current_app.redis.get(key))
-            except (ValueError, TypeError):
-                remaining = requests
-                current_app.redis.set(key, 0)
+    try:
+        remaining = requests - int(current_app.redis.get(key))
+    except (ValueError, TypeError):
+        remaining = requests
+        current_app.redis.set(key, 0)
 
-            ttl = current_app.redis.ttl(key)
-            if ttl == -1:
-                current_app.redis.expire(key, window)
+    ttl = current_app.redis.ttl(key)
+    if ttl == -1:
+        current_app.redis.expire(key, window)
 
-            if remaining > 0:
-                current_app.redis.incr(key, 1)
-                return f(*args, **kwargs)
-            else:
-                return {'error': 'Too Many Requests', 'code': 429}
-        return decorated
-    return decorator
+    if remaining > 0:
+        current_app.redis.incr(key, 1)
+    else:
+        raise IOError({'error': 'Too Many Requests', 'code': 429})
+
+
+# limit_wrapper is a decorator to controller number of requests are made to server to avoid attacks
+# and limit database cost. By default, it limit 100 requests/30s interval/1 IP address and 30
+# request/second/all IP addresses
+def check_all_request_limit(wrapped):
+    def wrapper(*args, **kwargs):
+        try:
+            request_limits = get_config(key='REQUEST_LIMITS')
+            per_ip_limit = request_limits['PER_IP_LIMIT']
+            parse_limit = request_limits['PARSE_LIMIT']
+
+            # Limit number of requests per IP adress
+            check_request_limit(
+                requests=per_ip_limit['NUM_REQUESTS'],
+                window=per_ip_limit['INTERVAL'],
+                by='ip',
+                group=None
+            )
+
+            # Limit number of requests per second
+            check_request_limit(
+                requests=parse_limit['NUM_REQUESTS'],
+                window=parse_limit['INTERVAL'],
+                by='parse',
+                group='parse'
+            )
+        except IOError as err:
+            return err.message
+
+        return wrapped(*args, **kwargs)
+    return wrapper

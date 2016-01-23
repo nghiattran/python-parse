@@ -1,3 +1,6 @@
+# @name <%= app_name %>
+# @description
+# Create connection between controllers and forms
 
 from src.models.user_model import\
     UserModel
@@ -8,8 +11,6 @@ from src.forms.user_form import\
     UserLoginForm,\
     UserResetPasswordForm,\
     AuthDataForm
-from src.models.authentication_model import\
-    validate_auth_token
 
 from flask_restful import Resource, Api
 

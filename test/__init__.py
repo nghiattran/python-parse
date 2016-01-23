@@ -1,3 +1,7 @@
+# @name <%= app_name %>
+# @description
+# Utility functions for setting up testing enviroment
+
 import json
 import string
 import random

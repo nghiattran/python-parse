@@ -1,4 +1,7 @@
-import json
+# @name <%= app_name %>
+# @description
+# Tests for UserController
+
 from test import BaseTestCase
 from src.utils import\
     get_config
@@ -134,8 +137,8 @@ class UserTestCase(BaseTestCase):
             'password': get_config(key="TEST_PASSWORD"),
             'email': "%s@email.com" % string
         }
-        user = self.post_data(url='signup', data=payload)
 
+        user = self.post_data(url='signup', data=payload)
         res = self.post_data(url='resetpassword', data=payload)
 
         assert 'updatedAt' in res
