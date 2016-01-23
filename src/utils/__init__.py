@@ -1,3 +1,7 @@
+# @name <%= app_name %>
+# @description
+# Utility functions for reading config files
+
 import json
 import os
 import random
@@ -27,4 +31,4 @@ def get_config(
     return CONFIG
 
 def random_string(length = 20, chars=string.ascii_uppercase + string.digits):
-        return ''.join(random.choice(chars) for _ in range(length))
+    return ''.join(random.choice(chars) for _ in range(length))

@@ -1,3 +1,7 @@
+# @name <%= app_name %>
+# @description
+# All functions for authentication and authorization purposes
+
 import requests
 import jwt
 from flask import\

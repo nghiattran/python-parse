@@ -1,4 +1,7 @@
-import json
+# @name <%= app_name %>
+# @description
+# Tests for UserController
+
 from test import BaseTestCase
 from src.utils import\
     get_config

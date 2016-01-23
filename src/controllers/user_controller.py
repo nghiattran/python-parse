@@ -1,3 +1,7 @@
+# @name <%= app_name %>
+# @description
+# UserControler handles everything related to users' information from
+# registration, verification, authenciation, ....
 
 import json
 from src.controllers import\
@@ -25,7 +29,7 @@ class UsersController(BaseUserController):
             res['params'] = params
             return res
 
-        return {'error':'Unvalid inputs', 'code': 400}
+        return {'error': 'Unvalid inputs', 'code': 400}
 
 
 class UserController(BaseUserController):
@@ -55,7 +59,7 @@ class UserController(BaseUserController):
                 object_id=object_id)
             return res
 
-        return {'error':'Unvalid inputs', 'code': 400}
+        return {'error': 'Unvalid inputs', 'code': 400}
 
     @requires_auth
     @check_all_request_limit
@@ -80,7 +84,7 @@ class SignupController(BaseUserController):
             )
             return res
 
-        return {'error':'Unvalid inputs', 'code': 400}
+        return {'error': 'Unvalid inputs', 'code': 400}
 
 
 class LoginController(BaseUserController):
@@ -91,10 +95,11 @@ class LoginController(BaseUserController):
             params = form.filter_data()
 
             res = self.model.user_login(
-                params= params
+                params=params
             )
             return res
-        return {'error':'Unvalid inputs', 'code': 400}
+        return {'error': 'Unvalid inputs', 'code': 400}
+
 
 class ResetpasswordController(BaseUserController):
     @check_all_request_limit
@@ -107,7 +112,8 @@ class ResetpasswordController(BaseUserController):
                 where=where
             )
             return res
-        return {'error':'Unvalid inputs', 'code': 400}
+        return {'error': 'Unvalid inputs', 'code': 400}
+
 
 class AuthController(BaseUserController):
     @check_all_request_limit
@@ -120,7 +126,8 @@ class AuthController(BaseUserController):
             )
 
             return res
-        return {'error':'Unvalid inputs', 'code': 400}
+        return {'error': 'Unvalid inputs', 'code': 400}
+
 
 class UserActivationController(BaseUserController):
     @check_all_request_limit

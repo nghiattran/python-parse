@@ -1,5 +1,8 @@
-import json
+# @name <%= app_name %>
+# @description
+# Utility functions for all Forms.
 
+import json
 from wtforms import\
     Form,\
     HiddenField,\
@@ -16,11 +19,13 @@ from wtforms.validators import\
 from flask import\
     request
 
+# Maximum number of objects can be returned set by Parse.com
 PARSE_MAX_LIMIT = 1000
 
+# BaseAPIForm is for parsing data from request object, getting rid of
+# unexpected data, and validate data
 class BaseAPIForm(Form):
     objectId = HiddenField()
-    # where to parse the data from request object (json, args, _headers, form)
     _data_location = 'json'
     _formdata = ''
 
@@ -48,6 +53,7 @@ class BaseAPIForm(Form):
             obj=obj,
             prefix=prefix)
 
+
     def filter_data(self):
         payload = {}
         for key in self._formdata.viewkeys() & self.data.viewkeys():
@@ -55,16 +61,16 @@ class BaseAPIForm(Form):
 
         return payload
 
+
     def validate(self):
         validate_result = super(BaseAPIForm, self).validate()
         if not validate_result:
             for k, v in self.errors.iteritems():
                 self.error_message = v[0]
                 break
-
             return False
-
         return validate_result
+
 
 class JSONField(StringField):
     def pre_validate(self, form):
@@ -73,9 +79,10 @@ class JSONField(StringField):
                 self.data = json.loads(self.data)
             except:
                 raise ValidationError("Invalid JSON Field")
-
         return super(JSONField, self).pre_validate(form)
 
+
+# 4 BaseForm classes describe where to look for information in request header.
 class BaseGetForm(BaseAPIForm):
     _data_location = 'args'
 
@@ -87,11 +94,14 @@ class BaseGetForm(BaseAPIForm):
     include = StringField(default=None)
     keys = StringField([validators.required()])
 
+
 class BasePostForm(BaseAPIForm):
     _data_location = 'json'
 
+
 class BasePutForm(BaseAPIForm):
     _data_location = 'json'
+
 
 class BaseDeleteForm(BaseAPIForm):
     _data_location = 'args'

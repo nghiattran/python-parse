@@ -1,3 +1,7 @@
+# @name <%= app_name %>
+# @description
+# Utility functions for sending emails
+
 from src.utils import get_config
 import twilio
 import twilio.rest
