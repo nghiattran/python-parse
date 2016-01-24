@@ -1,3 +1,7 @@
+# @name <%= app_name %>
+# @description
+# Application file for setting up server.
+
 from flask import\
     Flask, render_template
 from flask_restful import\
