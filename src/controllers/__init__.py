@@ -1,7 +1,8 @@
-# @name <%= app_name %>
+# @name testApp
 # @description
 # Create connection between controllers and forms
 
+from flask_restful import Resource, Api
 from src.models.user_model import\
     UserModel
 from src.forms.user_form import\
@@ -11,8 +12,8 @@ from src.forms.user_form import\
     UserLoginForm,\
     UserResetPasswordForm,\
     AuthDataForm
-
-from flask_restful import Resource, Api
+# MARKED: DO NOT REMOVE THIS LINE, generator-python-parse needs it to work
+# properply
 
 class BaseController(Resource):
     pass
