@@ -13,7 +13,21 @@
 [API architecture](#architecture)&nbsp;&nbsp;&nbsp;
 
 #<a name="generator">Generator-python-parse
-Automate everything with [Generator-python-parse][generator-python-parse-url]
+Now you can use [Generator-python-parse][generator-python-parse-url] to generate entire project and add custom API endpoint.
+
+###Installation
+First, install [Yeoman](http://yeoman.io) and generator-python-parse using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+
+```bash
+npm install -g yo
+npm install -g generator-python-parse
+```
+
+###Usage
+```bash
+yo python-parse				#To generate entire project
+yo python-parse:app 		#To add an endpoint
+```
 
 #<a name="road-map">Road map
 
