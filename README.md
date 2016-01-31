@@ -1,30 +1,46 @@
-#Work In Progress
 
-[![Build Status](https://travis-ci.org/nghiattran/python-parse.svg?branch=master)](https://travis-ci.org/nghiattran/python-parse)
-[![Coverage Status](https://coveralls.io/repos/nghiattran/python-parse/badge.svg?branch=master&service=github)](https://coveralls.io/github/nghiattran/python-parse?branch=master)
+[![Build Status][travis-image]][travis-url]
+[![Coverage percentage][coveralls-image]][coveralls-url]
 
 #Python-parse
-    Python API template for backend system using parse.com as database.
+	Python API template for backend system using parse.com as database.
 
 [![image](python-parse.png)](https://github.com/nghiattran/python-parse) 
 
-[Roadmap](https://github.com/nghiattran/python-parse#road-map)&nbsp;&nbsp;&nbsp;
-[Getting Started](https://github.com/nghiattran/python-parse#getting-started)&nbsp;&nbsp;&nbsp;
-[API architecture](https://github.com/nghiattran/python-parse#api-architecture)&nbsp;&nbsp;&nbsp;
-[How to ](https://github.com/nghiattran/python-parse#how-to-use)&nbsp;&nbsp;&nbsp;
+[Generator](#generator)&nbsp;&nbsp;&nbsp;
+[Roadmap](#road-map)&nbsp;&nbsp;&nbsp;
+[Basic command](#basic)&nbsp;&nbsp;&nbsp;
+[API architecture](#architecture)&nbsp;&nbsp;&nbsp;
 
-#Road map
+#<a name="generator">Generator-python-parse
+Now you can use [Generator-python-parse][generator-python-parse-url] to generate entire project and add custom API endpoint.
+
+###Installation
+First, install [Yeoman](http://yeoman.io) and generator-python-parse using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+
+```bash
+npm install -g yo
+npm install -g generator-python-parse
+```
+
+###Usage
+```bash
+yo python-parse				#To generate entire project
+yo python-parse:app 		#To add an endpoint
+```
+
+#<a name="road-map">Road map
 
 List of planning features:
 
 - [x] Limit request per IP
 - [x] Limit request per interval of time
 - [x] Email automation
-- [ ] Update documentation
 - [x] Social network integration
-- [ ] Remove unused dependencies
+- [x] Integrate with yeoman
 
-# Getting started
+
+#<a name="basic"></a>Basic command
 
 ###Installation
     
@@ -32,24 +48,16 @@ List of planning features:
     bin/install
  
 ###Start
-    
-    # start redis
-    bin/start_redis
-    #start api in port 8000
+   
+    #start api at port 8000
     bin/start
     
 ###Testing
     
-    # run normal tests
+    # run tests
     bin/test
     # or run a specific test file
     bin/test path/to/file
-
-    # not available yet
-    # run mock tests
-    bin/mock
-    # or run a specific mock test file
-    bin/mock path/to/file
 
     # run coverage
     bin/cover
@@ -57,17 +65,16 @@ List of planning features:
     # clean up
     bin/clean
 
-#API architecture
+#<a name="architecture">API architecture
 
     bin
         \- install                          # install all dependencies
         \- start_redis                      # start redis
         \- start                            # start service   
-        \- test                             # run live tests
-        \- mock                             # run mock tests (in future)
+        \- test                             # run tests
         \- cover                            # run coverage
         \- clean                            # clean coverage
-    app.py                                  # create app and set routes
+    app.py                                  # create app and set up endpoints 
     src
         \- controllers                      
             \- __init__                     # set up controllers and their associates
@@ -223,6 +230,16 @@ Where `UsersController` is the controller to handle `users` endpoint and `UserCo
 
 #License
 &nbsp;&nbsp;&nbsp;[License](https://github.com/nghiattran/LICENSE)
+
+#Credits
+[Kien Pham](https://github.com/kienpham2000)
+
+[python-parse-url]: https://github.com/nghiattran/python-parse
+[generator-python-parse-url]: https://github.com/nghiattran/generator-python-parse
+[travis-url]: https://travis-ci.org/nghiattran/python-parse
+[travis-image]: https://travis-ci.org/nghiattran/python-parse.svg?branch=master
+[coveralls-image]: https://coveralls.io/repos/nghiattran/python-parse/badge.svg
+[coveralls-url]: https://coveralls.io/r/nghiattran/python-parseiattran/LICENSE)
 
 #Credits
 [Kien Pham](https://github.com/kienpham2000)
